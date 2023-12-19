@@ -5,6 +5,10 @@ export const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+
+  @media (max-width: 900px) {
+    display: 1rem;
+  }
 `
 export const Carousel = styled.div`
   display: flex;
@@ -32,4 +36,19 @@ export const Banner = styled.div`
 
   align-items: center;
   justify-content: center;
+`
+export const ContentWeb = styled.div`
+  display: none;
+
+  @media (min-width: 900px) {
+    display: block;
+  }
+`
+
+export const ContentMobile = styled.div`
+  display: none;
+
+  @media (max-width: 900px) {
+    display: block;
+  }
 `

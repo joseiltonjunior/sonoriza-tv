@@ -43,6 +43,11 @@ export const Profile = styled.button`
   cursor: pointer;
 
   margin-left: 20px;
+
+  @media (max-width: 900px) {
+    width: 40px;
+    height: 40px;
+  }
 `
 
 export const Content = styled.div`
