@@ -14,20 +14,23 @@ import 'react-toastify/dist/ReactToastify.css'
 import { PropsWithChildren } from 'react'
 import { colors } from '@/styles/colors'
 import { ThemeProps } from '@/storage/modules/theme/reducer'
+import { ModalProvider } from './useModal'
 
 export function Hooks({ children }: PropsWithChildren) {
   const { theme } = useSelector<ReduxProps, ThemeProps>((item) => item.theme)
 
   return (
     <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
-      <GlobalStyle />
-      <SkeletonTheme
-        baseColor={colors.Dark_800}
-        highlightColor={colors.Dark_300}
-      >
-        {children}
-      </SkeletonTheme>
-      <ToastContainer />
+      <ModalProvider>
+        <GlobalStyle />
+        <SkeletonTheme
+          baseColor={colors.Dark_800}
+          highlightColor={colors.Dark_300}
+        >
+          {children}
+        </SkeletonTheme>
+        <ToastContainer />
+      </ModalProvider>
     </ThemeProvider>
   )
 }

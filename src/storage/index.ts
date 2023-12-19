@@ -14,9 +14,13 @@ import storage from 'redux-persist/lib/storage'
 import { ThemeProps } from './modules/theme/reducer'
 
 import rootReducer from './modules/rootReducer'
+import { LanguageProps } from './modules/language/reducer'
+import { ProfileProps } from './modules/profile/reducer'
 
 export interface ReduxProps {
   theme: ThemeProps
+  language: LanguageProps
+  profile: ProfileProps
 }
 
 const persistConfig = {
