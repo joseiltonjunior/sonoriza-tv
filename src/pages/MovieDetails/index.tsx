@@ -46,7 +46,6 @@ export function MovieDetails() {
   const handleGetMovieDB = useCallback(async () => {
     await API.get(`/movie/${id}?language=${lang}`)
       .then((result) => {
-        console.log(result)
         setMovieDetails(result.data)
       })
       .catch(() =>
@@ -88,32 +87,30 @@ export function MovieDetails() {
           />
 
           <ContentInfo>
-            <RowContent>
-              <div>
-                <h1>{movieDetails.title}</h1>
-                <RowContent>
-                  <p>{formatDate(movieDetails.release_date)}</p>
-                  <ContentGenres>
-                    {movieDetails.genres.map((item, index) => (
-                      <p key={item.id}>
-                        {item.name}
-                        {index + 1 !== movieDetails.genres.length && ', '}
-                      </p>
-                    ))}
-                  </ContentGenres>
-                </RowContent>
-              </div>
-              <AddFavorite
-                title="Adicionar aos favoritos"
-                onClick={() => dispatch(setFavorites(movieDetails))}
-              >
-                {isFavorite ? (
-                  <MdFavorite size={20} color={colors.Light} />
-                ) : (
-                  <MdFavoriteBorder size={20} color={colors.Light} />
-                )}
-              </AddFavorite>
-            </RowContent>
+            <div>
+              <h1>{movieDetails.title}</h1>
+              <RowContent>
+                <p>{formatDate(movieDetails.release_date)}</p>
+                <ContentGenres>
+                  {movieDetails.genres.map((item, index) => (
+                    <p key={item.id}>
+                      {item.name}
+                      {index + 1 !== movieDetails.genres.length && ', '}
+                    </p>
+                  ))}
+                </ContentGenres>
+              </RowContent>
+            </div>
+            <AddFavorite
+              title="Adicionar aos favoritos"
+              onClick={() => dispatch(setFavorites(movieDetails))}
+            >
+              {isFavorite ? (
+                <MdFavorite size={20} color={colors.Light} />
+              ) : (
+                <MdFavoriteBorder size={20} color={colors.Light} />
+              )}
+            </AddFavorite>
 
             <h4>{movieDetails.tagline}</h4>
 

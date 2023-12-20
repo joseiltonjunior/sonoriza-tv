@@ -2,7 +2,7 @@ import { Header } from '@/components/Header'
 import { ReduxProps } from '@/storage'
 
 import { useSelector } from 'react-redux'
-import { Container, ContentMobile, ContentWeb } from './styles'
+import { Container, ContentMobile, ContentWeb, Title } from './styles'
 import { useCallback, useEffect, useState } from 'react'
 import API from '@/services/api'
 import { ProfileProps } from '@/storage/modules/profile/reducer'
@@ -16,6 +16,7 @@ import { HistoricProps } from '@/storage/modules/historic/reducer'
 import { FavoritesProps } from '@/storage/modules/favorites/reducer'
 import { CarouselFavoritesWeb } from '@/components/CarouselFavoritesWeb'
 import { CarouselFavoritesMobile } from '@/components/CarouselFavoritesMobile'
+import { PopularMovies } from '@/components/PopularMovies'
 
 export function Home() {
   const { profile } = useSelector<ReduxProps, ProfileProps>(
@@ -35,6 +36,7 @@ export function Home() {
   )
 
   const [popularMovies, setPopularMovies] = useState<MoviesProps[]>()
+  const [discoverMovies, setDiscoverMovies] = useState<MoviesProps[]>()
 
   const { showToast } = useToast()
 
@@ -45,7 +47,7 @@ export function Home() {
       }&include_video=true&language=${lang}&page=1&sort_by=popularity.desc`,
     )
       .then((result) => {
-        setPopularMovies(result.data.results)
+        setDiscoverMovies(result.data.results)
       })
       .catch(() =>
         showToast('Error while fetching movies', {
@@ -55,19 +57,34 @@ export function Home() {
       )
   }, [lang, profile, showToast])
 
+  const handleGetPopularMoviesDB = useCallback(async () => {
+    await API.get(`/movie/popular?language=${lang}&page=2`)
+      .then((result) => {
+        setPopularMovies(result.data.results)
+      })
+      .catch(() =>
+        showToast('Error while fetching movies', {
+          type: 'error',
+          theme: 'colored',
+        }),
+      )
+  }, [lang, showToast])
+
   useEffect(() => {
+    handleGetPopularMoviesDB()
     handleGetMoviesDB()
-  }, [handleGetMoviesDB])
+  }, [handleGetMoviesDB, handleGetPopularMoviesDB])
 
   return (
     <>
       <Header />
+
+      {popularMovies && <PopularMovies movies={popularMovies} />}
+
       <Container>
         {historic.length > 0 && (
           <>
-            <div>
-              <h2>Vistos recentemente</h2>
-            </div>
+            <Title>Vistos recentemente</Title>
             <ContentWeb>
               <CarouselWeb movies={historic} />
             </ContentWeb>
@@ -80,9 +97,7 @@ export function Home() {
 
         {favorites.length > 0 && (
           <div style={{ marginTop: 50 }}>
-            <div>
-              <h2>Favoritos</h2>
-            </div>
+            <Title>Favoritos</Title>
             <ContentWeb>
               <CarouselFavoritesWeb movies={favorites} />
             </ContentWeb>
@@ -93,17 +108,15 @@ export function Home() {
           </div>
         )}
 
-        {popularMovies && (
+        {discoverMovies && (
           <div style={{ marginTop: 50 }}>
-            <div>
-              <h2>Tendências</h2>
-            </div>
+            <Title>Popular no Sonoriza</Title>
             <ContentWeb>
-              <CarouselWeb movies={popularMovies} />
+              <CarouselWeb movies={discoverMovies} />
             </ContentWeb>
 
             <ContentMobile>
-              <CarouselMobile movies={popularMovies} />
+              <CarouselMobile movies={discoverMovies} />
             </ContentMobile>
           </div>
         )}

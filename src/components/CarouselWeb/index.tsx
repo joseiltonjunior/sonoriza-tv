@@ -41,17 +41,22 @@ export function CarouselWeb({ movies }: CarouselProps) {
               src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
               alt="poster"
             />
-            {isFocus === item.id && item.overview && (
-              <ContentPreview>
-                <p>{item.overview}</p>
-                <Link
-                  to={`/movie/${item.id}`}
-                  onClick={() => dispatch(setHistoric(item))}
-                >
-                  Ver mais
-                </Link>
-              </ContentPreview>
-            )}
+
+            <ContentPreview
+              animate={{
+                y: isFocus === item.id && item.overview ? 0 : -30,
+                opacity: isFocus === item.id && item.overview ? 1 : 0,
+              }}
+              transition={{ duration: 0.4 }}
+            >
+              <p>{item.overview}</p>
+              <Link
+                to={`/movie/${item.id}`}
+                onClick={() => dispatch(setHistoric(item))}
+              >
+                Ver mais
+              </Link>
+            </ContentPreview>
           </ImageBanner>
           <InfoBanner>
             <p>{item.title}</p>

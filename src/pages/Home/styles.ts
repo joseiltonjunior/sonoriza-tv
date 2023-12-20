@@ -1,5 +1,6 @@
 import { colors } from '@/styles/colors'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 
 export const Container = styled.div`
   max-width: calc(100vw - ((100vw - 1180px) / 2));
@@ -39,13 +40,12 @@ export const Banner = styled.div`
   position: relative;
   overflow: hidden;
 `
-export const ContentPreview = styled.div`
+export const ContentPreview = styled(motion.div)`
   position: absolute;
-  background-color: ${(props) => props.theme.background};
+  background-color: rgba(0, 0, 0, 0.9);
   height: 100%;
   border-radius: 4px;
   overflow: hidden;
-  border: 1px solid ${colors.Primary};
   padding: 12px 6px;
 
   p {
@@ -101,4 +101,10 @@ export const InfoBanner = styled.div`
   span {
     font-size: 14px;
   }
+`
+
+export const Title = styled.p`
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 1.2rem;
 `

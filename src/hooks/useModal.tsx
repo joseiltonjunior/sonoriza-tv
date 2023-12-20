@@ -13,9 +13,11 @@ export function ModalProvider({ children }: React.PropsWithChildren) {
 
   const openModal = () => {
     setIsVisible(true)
+    document.body.style.overflow = 'hidden'
   }
 
   const closeModal = () => {
+    document.body.style.overflow = 'auto'
     setIsVisible(false)
   }
 
