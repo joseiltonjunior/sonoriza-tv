@@ -4,19 +4,27 @@ import { ReduxProps } from '@/storage'
 import { LanguageProps } from '@/storage/modules/language/reducer'
 import { MovieDetailsProps } from '@/utils/types/movieDetails'
 
-import { useCallback, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import {
+  AddFavorite,
   Container,
   ContentBackground,
   ContentGenres,
   ContentHeader,
   ContentInfo,
   MovieBackgroud,
+  RowContent,
 } from './styles'
 import { Header } from '@/components/Header'
 import { formatDate } from '@/utils/formatDate'
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md'
+import { colors } from '@/styles/colors'
+import {
+  FavoritesProps,
+  setFavorites,
+} from '@/storage/modules/favorites/reducer'
 
 export function MovieDetails() {
   const { id } = useParams()
@@ -25,7 +33,13 @@ export function MovieDetails() {
     (item) => item.language,
   )
 
+  const { favorites } = useSelector<ReduxProps, FavoritesProps>(
+    (item) => item.favorites,
+  )
+
   const { showToast } = useToast()
+
+  const dispatch = useDispatch()
 
   const [movieDetails, setMovieDetails] = useState<MovieDetailsProps>()
 
@@ -42,6 +56,16 @@ export function MovieDetails() {
         }),
       )
   }, [lang, showToast, id])
+
+  const isFavorite = useMemo(() => {
+    const filter = favorites.find((item) => item.id === movieDetails?.id)
+
+    if (filter) {
+      return true
+    } else {
+      return false
+    }
+  }, [favorites, movieDetails?.id])
 
   useEffect(() => {
     handleGetMovieDB()
@@ -64,18 +88,32 @@ export function MovieDetails() {
           />
 
           <ContentInfo>
-            <h1>{movieDetails.title}</h1>
-            <div>
-              <p>{formatDate(movieDetails.release_date)}</p>
-              <ContentGenres>
-                {movieDetails.genres.map((item, index) => (
-                  <p key={item.id}>
-                    {item.name}
-                    {index + 1 !== movieDetails.genres.length && ', '}
-                  </p>
-                ))}
-              </ContentGenres>
-            </div>
+            <RowContent>
+              <div>
+                <h1>{movieDetails.title}</h1>
+                <RowContent>
+                  <p>{formatDate(movieDetails.release_date)}</p>
+                  <ContentGenres>
+                    {movieDetails.genres.map((item, index) => (
+                      <p key={item.id}>
+                        {item.name}
+                        {index + 1 !== movieDetails.genres.length && ', '}
+                      </p>
+                    ))}
+                  </ContentGenres>
+                </RowContent>
+              </div>
+              <AddFavorite
+                title="Adicionar aos favoritos"
+                onClick={() => dispatch(setFavorites(movieDetails))}
+              >
+                {isFavorite ? (
+                  <MdFavorite size={20} color={colors.Light} />
+                ) : (
+                  <MdFavoriteBorder size={20} color={colors.Light} />
+                )}
+              </AddFavorite>
+            </RowContent>
 
             <h4>{movieDetails.tagline}</h4>
 

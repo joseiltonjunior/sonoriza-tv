@@ -1,3 +1,4 @@
+import { colors } from '@/styles/colors'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -64,10 +65,10 @@ export const ContentBackground = styled.div`
   }
 `
 export const ContentInfo = styled.div`
-  div {
+  /* div {
     display: flex;
     align-items: center;
-  }
+  } */
 
   h4 {
     font-weight: 500;
@@ -83,4 +84,21 @@ export const ContentGenres = styled.div`
   gap: 4px;
   display: flex;
   margin-left: 1rem;
+`
+export const RowContent = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const AddFavorite = styled.button`
+  margin-left: auto;
+  background-color: ${colors.Primary};
+  border-radius: 50%;
+  border: none;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
 `

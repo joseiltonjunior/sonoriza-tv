@@ -13,6 +13,9 @@ import { useToast } from '@/hooks/useToast'
 import { CarouselWeb } from '@/components/CarouselWeb'
 import { CarouselMobile } from '@/components/CarouselMobile'
 import { HistoricProps } from '@/storage/modules/historic/reducer'
+import { FavoritesProps } from '@/storage/modules/favorites/reducer'
+import { CarouselFavoritesWeb } from '@/components/CarouselFavoritesWeb'
+import { CarouselFavoritesMobile } from '@/components/CarouselFavoritesMobile'
 
 export function Home() {
   const { profile } = useSelector<ReduxProps, ProfileProps>(
@@ -25,6 +28,10 @@ export function Home() {
 
   const { historic } = useSelector<ReduxProps, HistoricProps>(
     (item) => item.historic,
+  )
+
+  const { favorites } = useSelector<ReduxProps, FavoritesProps>(
+    (item) => item.favorites,
   )
 
   const [popularMovies, setPopularMovies] = useState<MoviesProps[]>()
@@ -69,6 +76,21 @@ export function Home() {
               <CarouselMobile movies={historic} />
             </ContentMobile>
           </>
+        )}
+
+        {favorites && (
+          <div style={{ marginTop: 50 }}>
+            <div>
+              <h2>Favoritos</h2>
+            </div>
+            <ContentWeb>
+              <CarouselFavoritesWeb movies={favorites} />
+            </ContentWeb>
+
+            <ContentMobile>
+              <CarouselFavoritesMobile movies={favorites} />
+            </ContentMobile>
+          </div>
         )}
 
         {popularMovies && (
