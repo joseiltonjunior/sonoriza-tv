@@ -10,7 +10,7 @@ export interface MoviesProps {
   poster_path: string
   release_date: string
   title: string
-  video: string
-  vote_average: string
-  vote_count: string
+  video: boolean
+  vote_average: number
+  vote_count: number
 }

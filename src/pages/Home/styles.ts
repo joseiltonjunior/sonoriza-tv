@@ -54,7 +54,7 @@ export const ContentPreview = styled(motion.div)`
     overflow: hidden;
     -webkit-line-clamp: 10;
     margin: 0 6px;
-    color: ${(props) => props.theme.font};
+    color: ${colors.Light};
   }
 
   a {

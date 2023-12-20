@@ -32,37 +32,41 @@ export function CarouselWeb({ movies }: CarouselProps) {
   return (
     <Carousel ref={sliderRef} className="ken-slider">
       {movies.map((item) => (
-        <Banner key={item.id} className="keen-slider__slide">
-          <ImageBanner
-            onMouseEnter={() => setIsFocus(item.id)}
-            onMouseLeave={() => setIsFocus(undefined)}
-          >
-            <img
-              src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
-              alt="poster"
-            />
-
-            <ContentPreview
-              animate={{
-                y: isFocus === item.id && item.overview ? 0 : -30,
-                opacity: isFocus === item.id && item.overview ? 1 : 0,
-              }}
-              transition={{ duration: 0.4 }}
-            >
-              <p>{item.overview}</p>
-              <Link
-                to={`/movie/${item.id}`}
-                onClick={() => dispatch(setHistoric(item))}
+        <div key={item.id}>
+          {item.poster_path && (
+            <Banner className="keen-slider__slide">
+              <ImageBanner
+                onMouseEnter={() => setIsFocus(item.id)}
+                onMouseLeave={() => setIsFocus(undefined)}
               >
-                Ver mais
-              </Link>
-            </ContentPreview>
-          </ImageBanner>
-          <InfoBanner>
-            <p>{item.title}</p>
-            <span>{formatDate(item.release_date)}</span>
-          </InfoBanner>
-        </Banner>
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
+                  alt="poster"
+                />
+
+                <ContentPreview
+                  animate={{
+                    y: isFocus === item.id && item.overview ? 0 : -30,
+                    opacity: isFocus === item.id && item.overview ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <p>{item.overview}</p>
+                  <Link
+                    to={`/movie/${item.id}`}
+                    onClick={() => dispatch(setHistoric(item))}
+                  >
+                    Ver mais
+                  </Link>
+                </ContentPreview>
+              </ImageBanner>
+              <InfoBanner>
+                <p>{item.title}</p>
+                <span>{formatDate(item.release_date)}</span>
+              </InfoBanner>
+            </Banner>
+          )}
+        </div>
       ))}
     </Carousel>
   )
