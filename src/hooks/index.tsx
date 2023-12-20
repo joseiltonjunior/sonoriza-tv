@@ -9,6 +9,8 @@ import GlobalStyle from '@/styles/global'
 import { ReduxProps } from '@/storage'
 import { useSelector } from 'react-redux'
 
+import { Analytics } from '@vercel/analytics/react'
+
 import 'react-loading-skeleton/dist/skeleton.css'
 import 'react-toastify/dist/ReactToastify.css'
 import { PropsWithChildren } from 'react'
@@ -31,6 +33,7 @@ export function Hooks({ children }: PropsWithChildren) {
         </SkeletonTheme>
         <ToastContainer />
       </ModalProvider>
+      <Analytics />
     </ThemeProvider>
   )
 }
