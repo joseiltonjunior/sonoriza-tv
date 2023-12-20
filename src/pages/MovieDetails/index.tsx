@@ -25,6 +25,13 @@ import {
   FavoritesProps,
   setFavorites,
 } from '@/storage/modules/favorites/reducer'
+import { CreditsProps } from '@/utils/types/credits'
+import { CarouselCredits } from '@/components/CarouselCredits'
+import { MoviesProps } from '@/utils/types/movies'
+import { CarouselWeb } from '@/components/CarouselWeb'
+import { ContentMobile, ContentWeb } from '../Home/styles'
+import { CarouselMobile } from '@/components/CarouselMobile'
+import { CarouselCreditsMobile } from '@/components/CarouselCreditsMobile'
 
 export function MovieDetails() {
   const { id } = useParams()
@@ -42,6 +49,8 @@ export function MovieDetails() {
   const dispatch = useDispatch()
 
   const [movieDetails, setMovieDetails] = useState<MovieDetailsProps>()
+  const [credits, setCredits] = useState<CreditsProps[]>()
+  const [recommendations, setRecommendations] = useState<MoviesProps[]>()
 
   const handleGetMovieDB = useCallback(async () => {
     await API.get(`/movie/${id}?language=${lang}`)
@@ -49,7 +58,35 @@ export function MovieDetails() {
         setMovieDetails(result.data)
       })
       .catch(() =>
-        showToast('Error while fetching movies', {
+        showToast('Error while fetching details movie', {
+          type: 'error',
+          theme: 'colored',
+        }),
+      )
+  }, [lang, showToast, id])
+
+  const handleGetCreditsMovieDB = useCallback(async () => {
+    setCredits([])
+    await API.get(`/movie/${id}/credits?language=${lang}`)
+      .then((result) => {
+        setCredits(result.data.cast)
+      })
+      .catch(() =>
+        showToast('Error while fetching credits movie', {
+          type: 'error',
+          theme: 'colored',
+        }),
+      )
+  }, [lang, showToast, id])
+
+  const handleGetRecommendationsMovieDB = useCallback(async () => {
+    setRecommendations([])
+    await API.get(`/movie/${id}/recommendations?language=${lang}`)
+      .then((result) => {
+        setRecommendations(result.data.results)
+      })
+      .catch(() =>
+        showToast('Error while fetching recommendations movie', {
           type: 'error',
           theme: 'colored',
         }),
@@ -67,8 +104,14 @@ export function MovieDetails() {
   }, [favorites, movieDetails?.id])
 
   useEffect(() => {
+    handleGetCreditsMovieDB()
     handleGetMovieDB()
-  }, [handleGetMovieDB])
+    handleGetRecommendationsMovieDB()
+  }, [
+    handleGetCreditsMovieDB,
+    handleGetMovieDB,
+    handleGetRecommendationsMovieDB,
+  ])
 
   if (!movieDetails) return
 
@@ -119,7 +162,34 @@ export function MovieDetails() {
           </ContentInfo>
         </ContentBackground>
       </ContentHeader>
-      <Container></Container>
+      <Container>
+        {credits && credits.length > 0 && (
+          <div>
+            <h1>Elenco</h1>
+
+            <ContentWeb>
+              <CarouselCredits credits={credits} />
+            </ContentWeb>
+
+            <ContentMobile>
+              <CarouselCreditsMobile credits={credits} />
+            </ContentMobile>
+          </div>
+        )}
+
+        {recommendations && recommendations.length > 0 && (
+          <div>
+            <h1>Recomendações</h1>
+            <ContentWeb>
+              <CarouselWeb movies={recommendations} />
+            </ContentWeb>
+
+            <ContentMobile>
+              <CarouselMobile movies={recommendations} />
+            </ContentMobile>
+          </div>
+        )}
+      </Container>
     </>
   )
 }

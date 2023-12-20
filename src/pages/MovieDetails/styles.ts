@@ -3,13 +3,18 @@ import { shade } from 'polished'
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  padding: 1rem;
-  max-width: 1200px;
+  max-width: calc(100vw - ((100vw - 1180px) / 2));
   margin: 0 auto;
   width: 100%;
 
-  @media (max-width: 900px) {
-    display: 1rem;
+  padding: 2rem 1rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  h1 {
+    margin-bottom: 0.5rem;
   }
 `
 
@@ -23,7 +28,7 @@ export const ContentHeader = styled.div`
   justify-content: center;
 
   @media (max-width: 900px) {
-    height: auto;
+    height: 65rem;
   }
 `
 
@@ -31,7 +36,7 @@ export const MovieBackgroud = styled.img`
   height: 100%;
   width: 100%;
 
-  padding-top: 70px;
+  object-fit: cover;
 
   opacity: ${(props) => props.theme.opacity};
 `

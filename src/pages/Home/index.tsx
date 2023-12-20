@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { Container, ContentMobile, ContentWeb, Title } from './styles'
 import { useCallback, useEffect, useState } from 'react'
 import API from '@/services/api'
-import { ProfileProps } from '@/storage/modules/profile/reducer'
+// import { ProfileProps } from '@/storage/modules/profile/reducer'
 import { LanguageProps } from '@/storage/modules/language/reducer'
 import { MoviesProps } from '@/utils/types/movies'
 
@@ -19,9 +19,9 @@ import { CarouselFavoritesMobile } from '@/components/CarouselFavoritesMobile'
 import { PopularMovies } from '@/components/PopularMovies'
 
 export function Home() {
-  const { profile } = useSelector<ReduxProps, ProfileProps>(
-    (item) => item.profile,
-  )
+  //   const { profile } = useSelector<ReduxProps, ProfileProps>(
+  //     (item) => item.profile,
+  //   )
 
   const { lang } = useSelector<ReduxProps, LanguageProps>(
     (item) => item.language,
@@ -36,18 +36,31 @@ export function Home() {
   )
 
   const [popularMovies, setPopularMovies] = useState<MoviesProps[]>()
-  const [discoverMovies, setDiscoverMovies] = useState<MoviesProps[]>()
+  const [topRatedMovies, setTopRatedMovies] = useState<MoviesProps[]>()
 
   const { showToast } = useToast()
 
-  const handleGetMoviesDB = useCallback(async () => {
-    await API.get(
-      `/discover/movie?include_adult=${
-        profile === 'normal' ? 'true' : 'false'
-      }&include_video=true&language=${lang}&page=1&sort_by=popularity.desc`,
-    )
+  //   const handleGetMoviesDB = useCallback(async () => {
+  //     await API.get(
+  //       `/discover/movie?include_adult=${
+  //         profile === 'normal' ? 'true' : 'false'
+  //       }&include_video=true&language=${lang}&page=1&sort_by=popularity.desc`,
+  //     )
+  //       .then((result) => {
+  //         setDiscoverMovies(result.data.results)
+  //       })
+  //       .catch(() =>
+  //         showToast('Error while fetching movies', {
+  //           type: 'error',
+  //           theme: 'colored',
+  //         }),
+  //       )
+  //   }, [lang, profile, showToast])
+
+  const handleGetTopRatedMoviesDB = useCallback(async () => {
+    await API.get(`/movie/top_rated?language=${lang}&page=1`)
       .then((result) => {
-        setDiscoverMovies(result.data.results)
+        setTopRatedMovies(result.data.results)
       })
       .catch(() =>
         showToast('Error while fetching movies', {
@@ -55,10 +68,10 @@ export function Home() {
           theme: 'colored',
         }),
       )
-  }, [lang, profile, showToast])
+  }, [lang, showToast])
 
   const handleGetPopularMoviesDB = useCallback(async () => {
-    await API.get(`/movie/popular?language=${lang}&page=2`)
+    await API.get(`/movie/popular?language=${lang}&page=1`)
       .then((result) => {
         setPopularMovies(result.data.results)
       })
@@ -72,8 +85,8 @@ export function Home() {
 
   useEffect(() => {
     handleGetPopularMoviesDB()
-    handleGetMoviesDB()
-  }, [handleGetMoviesDB, handleGetPopularMoviesDB])
+    handleGetTopRatedMoviesDB()
+  }, [handleGetTopRatedMoviesDB, handleGetPopularMoviesDB])
 
   return (
     <>
@@ -108,15 +121,15 @@ export function Home() {
           </div>
         )}
 
-        {discoverMovies && (
+        {topRatedMovies && (
           <div style={{ marginTop: 50 }}>
-            <Title>Popular no Sonoriza</Title>
+            <Title>Mais votados</Title>
             <ContentWeb>
-              <CarouselWeb movies={discoverMovies} />
+              <CarouselWeb movies={topRatedMovies} />
             </ContentWeb>
 
             <ContentMobile>
-              <CarouselMobile movies={discoverMovies} />
+              <CarouselMobile movies={topRatedMovies} />
             </ContentMobile>
           </div>
         )}

@@ -23,7 +23,7 @@ export const Container = styled.div`
 
     @media (max-width: 900px) {
       height: auto;
-      margin-bottom: 5rem;
+      margin-bottom: 8rem;
     }
   }
 `
@@ -38,6 +38,10 @@ export const ContentInfo = styled.div`
 
   h1 {
     font-size: 5rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
   }
 
   p {
