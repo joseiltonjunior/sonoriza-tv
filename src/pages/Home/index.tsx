@@ -12,6 +12,10 @@ import { MoviesProps } from '@/utils/types/movies'
 import { useToast } from '@/hooks/useToast'
 import { CarouselWeb } from '@/components/CarouselWeb'
 import { CarouselMobile } from '@/components/CarouselMobile'
+import { HistoricProps } from '@/storage/modules/historic/reducer'
+import { FavoritesProps } from '@/storage/modules/favorites/reducer'
+import { CarouselFavoritesWeb } from '@/components/CarouselFavoritesWeb'
+import { CarouselFavoritesMobile } from '@/components/CarouselFavoritesMobile'
 
 export function Home() {
   const { profile } = useSelector<ReduxProps, ProfileProps>(
@@ -20,6 +24,14 @@ export function Home() {
 
   const { lang } = useSelector<ReduxProps, LanguageProps>(
     (item) => item.language,
+  )
+
+  const { historic } = useSelector<ReduxProps, HistoricProps>(
+    (item) => item.historic,
+  )
+
+  const { favorites } = useSelector<ReduxProps, FavoritesProps>(
+    (item) => item.favorites,
   )
 
   const [popularMovies, setPopularMovies] = useState<MoviesProps[]>()
@@ -51,10 +63,40 @@ export function Home() {
     <>
       <Header />
       <Container>
-        {popularMovies && (
+        {historic.length > 0 && (
           <>
             <div>
-              <h2>Têndencias</h2>
+              <h2>Vistos recentemente</h2>
+            </div>
+            <ContentWeb>
+              <CarouselWeb movies={historic} />
+            </ContentWeb>
+
+            <ContentMobile>
+              <CarouselMobile movies={historic} />
+            </ContentMobile>
+          </>
+        )}
+
+        {favorites && (
+          <div style={{ marginTop: 50 }}>
+            <div>
+              <h2>Favoritos</h2>
+            </div>
+            <ContentWeb>
+              <CarouselFavoritesWeb movies={favorites} />
+            </ContentWeb>
+
+            <ContentMobile>
+              <CarouselFavoritesMobile movies={favorites} />
+            </ContentMobile>
+          </div>
+        )}
+
+        {popularMovies && (
+          <div style={{ marginTop: 50 }}>
+            <div>
+              <h2>Tendências</h2>
             </div>
             <ContentWeb>
               <CarouselWeb movies={popularMovies} />
@@ -63,7 +105,7 @@ export function Home() {
             <ContentMobile>
               <CarouselMobile movies={popularMovies} />
             </ContentMobile>
-          </>
+          </div>
         )}
       </Container>
     </>

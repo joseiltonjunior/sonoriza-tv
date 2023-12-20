@@ -6,7 +6,16 @@ export const Container = styled.header`
   height: 70px;
   display: flex;
   align-items: center;
-  padding: 0 1.5rem;
+
+  justify-content: space-between;
+
+  padding: 0 1rem;
+`
+export const LimitContent = styled.div`
+  max-width: calc(100vw - ((100vw - 1180px) / 2));
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
   justify-content: space-between;
 `
 

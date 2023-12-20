@@ -16,11 +16,15 @@ import { ThemeProps } from './modules/theme/reducer'
 import rootReducer from './modules/rootReducer'
 import { LanguageProps } from './modules/language/reducer'
 import { ProfileProps } from './modules/profile/reducer'
+import { HistoricProps } from './modules/historic/reducer'
+import { FavoritesProps } from './modules/favorites/reducer'
 
 export interface ReduxProps {
   theme: ThemeProps
   language: LanguageProps
   profile: ProfileProps
+  historic: HistoricProps
+  favorites: FavoritesProps
 }
 
 const persistConfig = {

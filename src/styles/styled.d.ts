@@ -4,5 +4,6 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     background: string
     font: string
+    opacity: number
   }
 }
