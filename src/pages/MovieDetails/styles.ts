@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  padding: 1.5rem;
+  padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -16,6 +16,9 @@ export const ContentHeader = styled.div`
   height: 40rem;
 
   width: 100%;
+
+  display: flex;
+  justify-content: center;
 
   @media (max-width: 900px) {
     height: auto;
@@ -37,7 +40,9 @@ export const ContentBackground = styled.div`
   z-index: 1000;
   top: 0;
 
-  padding: 0 19rem;
+  max-width: calc(100vw - ((100vw - 1180px) / 2));
+  margin: 0 auto;
+
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -48,13 +53,9 @@ export const ContentBackground = styled.div`
     border-radius: 4px;
   }
 
-  @media (max-width: 1366px) {
-    padding: 0 6rem;
-  }
-
   @media (max-width: 900px) {
     flex-direction: column;
-    padding: 0 2rem;
+    padding: 0 1rem;
     margin-top: 2rem;
 
     img {

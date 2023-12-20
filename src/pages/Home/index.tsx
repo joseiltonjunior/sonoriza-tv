@@ -12,6 +12,7 @@ import { MoviesProps } from '@/utils/types/movies'
 import { useToast } from '@/hooks/useToast'
 import { CarouselWeb } from '@/components/CarouselWeb'
 import { CarouselMobile } from '@/components/CarouselMobile'
+import { HistoricProps } from '@/storage/modules/historic/reducer'
 
 export function Home() {
   const { profile } = useSelector<ReduxProps, ProfileProps>(
@@ -20,6 +21,10 @@ export function Home() {
 
   const { lang } = useSelector<ReduxProps, LanguageProps>(
     (item) => item.language,
+  )
+
+  const { historic } = useSelector<ReduxProps, HistoricProps>(
+    (item) => item.historic,
   )
 
   const [popularMovies, setPopularMovies] = useState<MoviesProps[]>()
@@ -51,8 +56,23 @@ export function Home() {
     <>
       <Header />
       <Container>
-        {popularMovies && (
+        {historic.length > 0 && (
           <>
+            <div>
+              <h2>Vistos recentemente</h2>
+            </div>
+            <ContentWeb>
+              <CarouselWeb movies={historic} />
+            </ContentWeb>
+
+            <ContentMobile>
+              <CarouselMobile movies={historic} />
+            </ContentMobile>
+          </>
+        )}
+
+        {popularMovies && (
+          <div style={{ marginTop: 50 }}>
             <div>
               <h2>Tendências</h2>
             </div>
@@ -63,7 +83,7 @@ export function Home() {
             <ContentMobile>
               <CarouselMobile movies={popularMovies} />
             </ContentMobile>
-          </>
+          </div>
         )}
       </Container>
     </>

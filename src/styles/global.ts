@@ -17,7 +17,7 @@ body {
   background: ${(props) => props.theme.background};
   color: ${(props) => props.theme.font};
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
+  
 
   @media (max-width: 900px) {
     overflow-y: scroll;

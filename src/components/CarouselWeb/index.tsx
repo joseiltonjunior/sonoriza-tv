@@ -5,10 +5,12 @@ import {
   ImageBanner,
   InfoBanner,
 } from '@/pages/Home/styles'
+import { setHistoric } from '@/storage/modules/historic/reducer'
 import { formatDate } from '@/utils/formatDate'
 import { MoviesProps } from '@/utils/types/movies'
 import { useKeenSlider } from 'keen-slider/react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 interface CarouselProps {
@@ -18,12 +20,14 @@ interface CarouselProps {
 export function CarouselWeb({ movies }: CarouselProps) {
   const [sliderRef] = useKeenSlider({
     slides: {
-      perView: 5,
+      perView: 6,
       spacing: 16,
     },
   })
 
   const [isFocus, setIsFocus] = useState<number | undefined>()
+
+  const dispatch = useDispatch()
 
   return (
     <Carousel ref={sliderRef} className="ken-slider">
@@ -40,7 +44,12 @@ export function CarouselWeb({ movies }: CarouselProps) {
             {isFocus === item.id && item.overview && (
               <ContentPreview>
                 <p>{item.overview}</p>
-                <Link to={`/movie/${item.id}`}>Ver mais</Link>
+                <Link
+                  to={`/movie/${item.id}`}
+                  onClick={() => dispatch(setHistoric(item))}
+                >
+                  Ver mais
+                </Link>
               </ContentPreview>
             )}
           </ImageBanner>

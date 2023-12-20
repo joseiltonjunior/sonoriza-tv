@@ -2,17 +2,14 @@ import { colors } from '@/styles/colors'
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  padding: 0 2rem;
-  max-width: 1366px;
+  max-width: calc(100vw - ((100vw - 1180px) / 2));
   margin: 2rem auto 0;
   width: 100%;
+  height: 100%;
 
   @media (max-width: 900px) {
     display: 1rem;
-  }
-
-  @media (max-width: 1366px) {
-    padding: 0 6rem;
+    padding: 0 1rem;
   }
 `
 export const Carousel = styled.div`

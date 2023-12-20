@@ -1,5 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Content, Logo, Container, Brand, Profile } from './styles'
+import {
+  Button,
+  Content,
+  Logo,
+  Container,
+  Brand,
+  Profile,
+  LimitContent,
+} from './styles'
 import { ReduxProps } from '@/storage'
 import { ThemeProps, setTheme } from '@/storage/modules/theme/reducer'
 import logo from '@/assets/logo.png'
@@ -24,35 +32,37 @@ export function Header() {
 
   return (
     <Container>
-      <Link to={'/'}>
-        <Logo src={logo} alt="logo" />
-      </Link>
+      <LimitContent>
+        <Link to={'/'}>
+          <Logo src={logo} alt="logo" />
+        </Link>
 
-      <Content>
-        <Button
-          onClick={() =>
-            dispatch(setLang({ lang: lang === 'pt-BR' ? 'en-US' : 'pt-BR' }))
-          }
-        >
-          <Brand src={lang === 'pt-BR' ? brazil : eua} alt="brand" />
-        </Button>
+        <Content>
+          <Button
+            onClick={() =>
+              dispatch(setLang({ lang: lang === 'pt-BR' ? 'en-US' : 'pt-BR' }))
+            }
+          >
+            <Brand src={lang === 'pt-BR' ? brazil : eua} alt="brand" />
+          </Button>
 
-        <Button
-          onClick={() =>
-            dispatch(setTheme({ theme: theme === 'dark' ? 'light' : 'dark' }))
-          }
-        >
-          {theme === 'dark' ? (
-            <MdLightMode color={colors.Light} size={20} />
-          ) : (
-            <MdDarkMode color={colors.Light} size={20} />
-          )}
-        </Button>
+          <Button
+            onClick={() =>
+              dispatch(setTheme({ theme: theme === 'dark' ? 'light' : 'dark' }))
+            }
+          >
+            {theme === 'dark' ? (
+              <MdLightMode color={colors.Light} size={20} />
+            ) : (
+              <MdDarkMode color={colors.Light} size={20} />
+            )}
+          </Button>
 
-        <Profile onClick={() => openModal()}>
-          <MdPerson color={colors.Light} size={25} />
-        </Profile>
-      </Content>
+          <Profile onClick={() => openModal()}>
+            <MdPerson color={colors.Light} size={25} />
+          </Profile>
+        </Content>
+      </LimitContent>
     </Container>
   )
 }
