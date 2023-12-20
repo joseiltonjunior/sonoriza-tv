@@ -6,8 +6,12 @@ export const Container = styled.header`
   height: 70px;
   display: flex;
   align-items: center;
-  padding: 0 1.5rem;
+  padding: 0 6rem;
   justify-content: space-between;
+
+  @media (min-width: 1367px) {
+    padding: 0 19rem;
+  }
 `
 
 export const Logo = styled.img`

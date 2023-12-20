@@ -10,6 +10,7 @@ import { MdDarkMode, MdLightMode, MdPerson } from 'react-icons/md'
 import { colors } from '@/styles/colors'
 import { LanguageProps, setLang } from '@/storage/modules/language/reducer'
 import { useModal } from '@/hooks/useModal'
+import { Link } from 'react-router-dom'
 
 export function Header() {
   const { theme } = useSelector<ReduxProps, ThemeProps>((item) => item.theme)
@@ -23,7 +24,9 @@ export function Header() {
 
   return (
     <Container>
-      <Logo src={logo} alt="logo" />
+      <Link to={'/'}>
+        <Logo src={logo} alt="logo" />
+      </Link>
 
       <Content>
         <Button

@@ -54,7 +54,7 @@ export function Home() {
         {popularMovies && (
           <>
             <div>
-              <h2>Têndencias</h2>
+              <h2>Tendências</h2>
             </div>
             <ContentWeb>
               <CarouselWeb movies={popularMovies} />
