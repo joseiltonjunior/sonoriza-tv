@@ -78,7 +78,7 @@ export function Home() {
           </>
         )}
 
-        {favorites && (
+        {favorites.length > 0 && (
           <div style={{ marginTop: 50 }}>
             <div>
               <h2>Favoritos</h2>
