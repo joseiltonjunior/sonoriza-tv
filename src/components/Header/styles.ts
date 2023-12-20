@@ -6,6 +6,10 @@ export const Container = styled.header`
   height: 70px;
   display: flex;
   align-items: center;
+  position: fixed;
+
+  z-index: 1000;
+  width: 100%;
 
   justify-content: space-between;
 

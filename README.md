@@ -2,7 +2,7 @@
 
 <h3 align="center">In progress</h3>
 
-<img src="https://i.ibb.co/X7wtdhB/sonoriza-tv.png" alt="home" border="0">
+<img src="https://i.ibb.co/cJJ1QYN/Captura-de-tela-de-2023-12-20-12-24-20.png" alt="home" border="0">
 
 
 ```sh
