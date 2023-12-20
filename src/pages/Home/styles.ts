@@ -2,6 +2,10 @@ import { colors } from '@/styles/colors'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
+interface ButtonPreviewProps {
+  $variant: 'remove' | 'favorite' | 'view'
+}
+
 export const Container = styled.div`
   max-width: calc(100vw - ((100vw - 1180px) / 2));
   margin: 2rem auto 0;
@@ -52,7 +56,7 @@ export const ContentPreview = styled(motion.div)`
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    -webkit-line-clamp: 10;
+    -webkit-line-clamp: 8;
     margin: 0 6px;
     color: ${colors.Light};
   }
@@ -67,9 +71,30 @@ export const ContentPreview = styled(motion.div)`
     text-align: center;
 
     width: 100%;
-    margin-top: auto;
     padding: 2px 0;
   }
+
+  div {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+`
+export const ButtonPreview = styled.button<ButtonPreviewProps>`
+  background-color: ${(props) =>
+    props.$variant === 'favorite' ? '#16a34a' : '#dc2626'};
+  border: none;
+  color: ${colors.Light};
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+
+  padding: 2px 0;
 `
 
 export const ContentWeb = styled.div`

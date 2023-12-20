@@ -4,8 +4,9 @@ import { Container, Overlay, BoxModal, Box, Content } from './styles'
 import { ProfileProps, setProfile } from '@/storage/modules/profile/reducer'
 import { ReduxProps } from '@/storage'
 import { useDispatch, useSelector } from 'react-redux'
-import { MdCheck } from 'react-icons/md'
-import { colors } from '@/styles/colors'
+
+import kids from '@/assets/thumb-2.png'
+import normal from '@/assets/thumb-1.png'
 
 export function Modal() {
   const { closeModal, visible } = useModal()
@@ -22,25 +23,27 @@ export function Modal() {
     <Container>
       <Overlay onClick={() => closeModal()} />
       <BoxModal>
-        <p>Escolha um perfil</p>
+        <p>Quem está assistindo?</p>
         <Content>
           <Box
+            $check={profile === 'kids'}
             onClick={() => {
               dispatch(setProfile({ profile: 'kids' }))
               closeModal()
             }}
           >
-            Infantil
-            {profile === 'kids' && <MdCheck color={colors.Light} size={20} />}
+            <img src={kids} alt="kids" />
+            Kids
           </Box>
           <Box
+            $check={profile === 'normal'}
             onClick={() => {
               dispatch(setProfile({ profile: 'normal' }))
               closeModal()
             }}
           >
+            <img src={normal} alt="normal" />
             Normal
-            {profile === 'normal' && <MdCheck color={colors.Light} size={20} />}
           </Box>
         </Content>
       </BoxModal>

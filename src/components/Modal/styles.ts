@@ -1,8 +1,12 @@
 import { colors } from '@/styles/colors'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+interface BoxProps {
+  $check: boolean
+}
 
 export const Container = styled.div`
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 100vh;
 
@@ -18,15 +22,15 @@ export const Container = styled.div`
 export const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
-  height: 100%;
+  height: 100vh;
 `
 
 export const BoxModal = styled.div`
   position: absolute;
   background-color: ${colors.Dark_600};
-  padding: 1rem;
+  padding: 1rem 2rem;
   border-radius: 6px;
-  width: 100%;
+
   width: fit-content;
   display: flex;
   flex-direction: column;
@@ -39,23 +43,47 @@ export const BoxModal = styled.div`
   }
 `
 
-export const Box = styled.button`
+export const Box = styled.button<BoxProps>`
   padding: 6px 0;
-  border-radius: 6px;
+  background-color: transparent;
   border: none;
   cursor: pointer;
-  background-color: ${colors.Primary};
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: none;
+
   color: ${colors.Light};
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+
+    ${(props) =>
+      props.$check &&
+      css`
+        border: 4px solid ${colors.Primary};
+      `}
+  }
+
+  svg {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
 `
 
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: 8rem 8rem;
+  grid-template-columns: 6rem 6rem;
   justify-content: space-between;
   gap: 1rem;
 

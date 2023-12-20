@@ -1,15 +1,18 @@
 import {
   Banner,
+  ButtonPreview,
   Carousel,
   ContentPreview,
   ImageBanner,
   InfoBanner,
 } from '@/pages/Home/styles'
+import { setBlockList } from '@/storage/modules/moviesBlock/reducer'
 import { formatDate } from '@/utils/formatDate'
 import { MovieDetailsProps } from '@/utils/types/movieDetails'
 
 import { useKeenSlider } from 'keen-slider/react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 interface CarouselProps {
@@ -25,6 +28,7 @@ export function CarouselFavoritesMobile({ movies }: CarouselProps) {
   })
 
   const [isFocus, setIsFocus] = useState<number | undefined>()
+  const dispatch = useDispatch()
 
   return (
     <Carousel ref={sliderRef} className="ken-slider">
@@ -39,9 +43,23 @@ export function CarouselFavoritesMobile({ movies }: CarouselProps) {
               alt="poster"
             />
             {isFocus === item.id && item.overview && (
-              <ContentPreview>
+              <ContentPreview
+                animate={{
+                  y: isFocus === item.id && item.overview ? 0 : -30,
+                  opacity: isFocus === item.id && item.overview ? 1 : 0,
+                }}
+                transition={{ duration: 0.4 }}
+              >
                 <p>{item.overview}</p>
-                <Link to={`/movie/${item.id}`}>Ver mais</Link>
+                <div>
+                  <ButtonPreview
+                    $variant="remove"
+                    onClick={() => dispatch(setBlockList(item.id))}
+                  >
+                    Não exibir
+                  </ButtonPreview>
+                  <Link to={`/movie/${item.id}`}>Ver mais</Link>
+                </div>
               </ContentPreview>
             )}
           </ImageBanner>

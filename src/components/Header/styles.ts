@@ -45,8 +45,8 @@ export const Button = styled.button`
 export const Profile = styled.button`
   width: 45px;
   height: 45px;
+  overflow: hidden;
 
-  padding: 4px;
   border-radius: 45px;
   border: none;
   display: flex;
@@ -56,6 +56,12 @@ export const Profile = styled.button`
   cursor: pointer;
 
   margin-left: 20px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
   @media (max-width: 900px) {
     width: 40px;

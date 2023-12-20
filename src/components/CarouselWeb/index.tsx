@@ -1,11 +1,13 @@
 import {
   Banner,
+  ButtonPreview,
   Carousel,
   ContentPreview,
   ImageBanner,
   InfoBanner,
 } from '@/pages/Home/styles'
 import { setHistoric } from '@/storage/modules/historic/reducer'
+import { setBlockList } from '@/storage/modules/moviesBlock/reducer'
 import { formatDate } from '@/utils/formatDate'
 import { MoviesProps } from '@/utils/types/movies'
 import { useKeenSlider } from 'keen-slider/react'
@@ -52,12 +54,20 @@ export function CarouselWeb({ movies }: CarouselProps) {
                   transition={{ duration: 0.4 }}
                 >
                   <p>{item.overview}</p>
-                  <Link
-                    to={`/movie/${item.id}`}
-                    onClick={() => dispatch(setHistoric(item))}
-                  >
-                    Ver mais
-                  </Link>
+                  <div>
+                    <ButtonPreview
+                      $variant="remove"
+                      onClick={() => dispatch(setBlockList(item.id))}
+                    >
+                      Não exibir
+                    </ButtonPreview>
+                    <Link
+                      to={`/movie/${item.id}`}
+                      onClick={() => dispatch(setHistoric(item))}
+                    >
+                      Ver mais
+                    </Link>
+                  </div>
                 </ContentPreview>
               </ImageBanner>
               <InfoBanner>

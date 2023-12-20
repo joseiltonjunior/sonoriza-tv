@@ -14,16 +14,24 @@ import logo from '@/assets/logo.png'
 import brazil from '@/assets/brazil.png'
 import eua from '@/assets/eua.png'
 
-import { MdDarkMode, MdLightMode, MdPerson } from 'react-icons/md'
+import { MdDarkMode, MdLightMode } from 'react-icons/md'
 import { colors } from '@/styles/colors'
 import { LanguageProps, setLang } from '@/storage/modules/language/reducer'
 import { useModal } from '@/hooks/useModal'
 import { Link } from 'react-router-dom'
 
+import kids from '@/assets/thumb-2.png'
+import normal from '@/assets/thumb-1.png'
+import { ProfileProps } from '@/storage/modules/profile/reducer'
+
 export function Header() {
   const { theme } = useSelector<ReduxProps, ThemeProps>((item) => item.theme)
   const { lang } = useSelector<ReduxProps, LanguageProps>(
     (item) => item.language,
+  )
+
+  const { profile } = useSelector<ReduxProps, ProfileProps>(
+    (item) => item.profile,
   )
 
   const { openModal } = useModal()
@@ -59,7 +67,7 @@ export function Header() {
           </Button>
 
           <Profile onClick={() => openModal()}>
-            <MdPerson color={colors.Light} size={25} />
+            <img src={profile === 'kids' ? kids : normal} alt="profile" />
           </Profile>
         </Content>
       </LimitContent>

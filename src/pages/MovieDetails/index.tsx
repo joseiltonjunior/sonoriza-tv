@@ -32,9 +32,14 @@ import { CarouselWeb } from '@/components/CarouselWeb'
 import { ContentMobile, ContentWeb } from '../Home/styles'
 import { CarouselMobile } from '@/components/CarouselMobile'
 import { CarouselCreditsMobile } from '@/components/CarouselCreditsMobile'
+import { MoviesBlockProps } from '@/storage/modules/moviesBlock/reducer'
 
 export function MovieDetails() {
   const { id } = useParams()
+
+  const { moviesBlock } = useSelector<ReduxProps, MoviesBlockProps>(
+    (item) => item.moviesBlock,
+  )
 
   const { lang } = useSelector<ReduxProps, LanguageProps>(
     (item) => item.language,
@@ -181,11 +186,19 @@ export function MovieDetails() {
           <div>
             <h1>Recomendações</h1>
             <ContentWeb>
-              <CarouselWeb movies={recommendations} />
+              <CarouselWeb
+                movies={recommendations.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </ContentWeb>
 
             <ContentMobile>
-              <CarouselMobile movies={recommendations} />
+              <CarouselMobile
+                movies={recommendations.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </ContentMobile>
           </div>
         )}

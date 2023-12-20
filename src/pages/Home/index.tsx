@@ -17,6 +17,7 @@ import { FavoritesProps } from '@/storage/modules/favorites/reducer'
 import { CarouselFavoritesWeb } from '@/components/CarouselFavoritesWeb'
 import { CarouselFavoritesMobile } from '@/components/CarouselFavoritesMobile'
 import { PopularMovies } from '@/components/PopularMovies'
+import { MoviesBlockProps } from '@/storage/modules/moviesBlock/reducer'
 
 export function Home() {
   //   const { profile } = useSelector<ReduxProps, ProfileProps>(
@@ -25,6 +26,10 @@ export function Home() {
 
   const { lang } = useSelector<ReduxProps, LanguageProps>(
     (item) => item.language,
+  )
+
+  const { moviesBlock } = useSelector<ReduxProps, MoviesBlockProps>(
+    (item) => item.moviesBlock,
   )
 
   const { historic } = useSelector<ReduxProps, HistoricProps>(
@@ -92,18 +97,32 @@ export function Home() {
     <>
       <Header />
 
-      {popularMovies && <PopularMovies movies={popularMovies} />}
+      {popularMovies && (
+        <PopularMovies
+          movies={popularMovies.filter(
+            (item) => !moviesBlock.includes(item.id),
+          )}
+        />
+      )}
 
       <Container>
         {historic.length > 0 && (
           <>
             <Title>Vistos recentemente</Title>
             <ContentWeb>
-              <CarouselWeb movies={historic} />
+              <CarouselWeb
+                movies={historic.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </ContentWeb>
 
             <ContentMobile>
-              <CarouselMobile movies={historic} />
+              <CarouselMobile
+                movies={historic.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </ContentMobile>
           </>
         )}
@@ -112,11 +131,19 @@ export function Home() {
           <div style={{ marginTop: 50 }}>
             <Title>Favoritos</Title>
             <ContentWeb>
-              <CarouselFavoritesWeb movies={favorites} />
+              <CarouselFavoritesWeb
+                movies={favorites.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </ContentWeb>
 
             <ContentMobile>
-              <CarouselFavoritesMobile movies={favorites} />
+              <CarouselFavoritesMobile
+                movies={favorites.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </ContentMobile>
           </div>
         )}
@@ -125,11 +152,19 @@ export function Home() {
           <div style={{ marginTop: 50 }}>
             <Title>Mais votados</Title>
             <ContentWeb>
-              <CarouselWeb movies={topRatedMovies} />
+              <CarouselWeb
+                movies={topRatedMovies.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </ContentWeb>
 
             <ContentMobile>
-              <CarouselMobile movies={topRatedMovies} />
+              <CarouselMobile
+                movies={topRatedMovies.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </ContentMobile>
           </div>
         )}
