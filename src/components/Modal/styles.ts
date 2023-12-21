@@ -1,4 +1,6 @@
 import { colors } from '@/styles/colors'
+import { shade } from 'polished'
+import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
 interface BoxProps {
@@ -99,5 +101,22 @@ export const ContentMobile = styled.div`
 
   @media (max-width: 900px) {
     display: flex;
+  }
+`
+
+export const Anchor = styled(Link)`
+  width: 100%;
+  background-color: ${colors.Primary};
+  text-decoration: none;
+  text-align: center;
+  border-radius: 4px;
+  padding: 6px 0;
+  color: ${colors.Light};
+  font-weight: bold;
+
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: ${shade(0.2, colors.Primary)};
   }
 `
