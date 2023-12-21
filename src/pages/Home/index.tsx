@@ -108,7 +108,11 @@ export function Home() {
   }, [lang, showToast])
 
   const handleGetPopularMoviesDB = useCallback(async () => {
-    await API.get(`/movie/popular?language=${lang}`)
+    await API.get(
+      `/discover/movie?include_adult=${
+        profile === 'normal' ? 'true' : 'false'
+      }&language=${lang}`,
+    )
       .then((result) => {
         setPopularMovies(result.data.results)
       })
@@ -118,7 +122,7 @@ export function Home() {
           theme: 'colored',
         }),
       )
-  }, [lang, showToast])
+  }, [lang, profile, showToast])
 
   const handleMoreItems = () => {
     setIsMoreItens(true)
@@ -127,7 +131,9 @@ export function Home() {
 
   const handleGetAllMoviesDB = useCallback(async () => {
     await API.get(
-      `/discover/movie?include_adult=${profile}&language=${lang}&page=${page}&sort_by=${sortBy}${
+      `/discover/movie?include_adult=${
+        profile === 'normal' ? 'true' : 'false'
+      }&language=${lang}&page=${page}&sort_by=${sortBy}${
         genre ? `&with_genres=${genre}` : ''
       }`,
     )
