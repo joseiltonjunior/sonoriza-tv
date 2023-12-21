@@ -12,8 +12,6 @@ describe('Search items', () => {
 
     const movies = response.data.results as MoviesProps[]
 
-    console.log(movies)
-
     expect(response.status).toEqual(200)
     expect(Array.isArray(movies)).toBe(true)
 
@@ -29,8 +27,6 @@ describe('Search items', () => {
     const response = await API.get(`/search/person?query=${filter}`)
 
     const movies = response.data.results as PersonProps[]
-
-    console.log(movies)
 
     expect(response.status).toEqual(200)
     expect(Array.isArray(movies)).toBe(true)
