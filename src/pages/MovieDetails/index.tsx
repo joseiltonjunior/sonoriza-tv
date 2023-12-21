@@ -15,7 +15,6 @@ import {
   ContentHeader,
   ContentInfo,
   MovieBackgroud,
-  RowContent,
 } from './styles'
 import { Header } from '@/components/Header'
 import { formatDate } from '@/utils/formatDate'
@@ -32,9 +31,14 @@ import { CarouselWeb } from '@/components/CarouselWeb'
 import { ContentMobile, ContentWeb } from '../Home/styles'
 import { CarouselMobile } from '@/components/CarouselMobile'
 import { CarouselCreditsMobile } from '@/components/CarouselCreditsMobile'
+import { MoviesBlockProps } from '@/storage/modules/moviesBlock/reducer'
 
 export function MovieDetails() {
   const { id } = useParams()
+
+  const { moviesBlock } = useSelector<ReduxProps, MoviesBlockProps>(
+    (item) => item.moviesBlock,
+  )
 
   const { lang } = useSelector<ReduxProps, LanguageProps>(
     (item) => item.language,
@@ -130,19 +134,19 @@ export function MovieDetails() {
           />
 
           <ContentInfo>
-            <div>
+            <div className="info">
               <h1>{movieDetails.title}</h1>
-              <RowContent>
-                <p>{formatDate(movieDetails.release_date)}</p>
-                <ContentGenres>
-                  {movieDetails.genres.map((item, index) => (
-                    <p key={item.id}>
-                      {item.name}
-                      {index + 1 !== movieDetails.genres.length && ', '}
-                    </p>
-                  ))}
-                </ContentGenres>
-              </RowContent>
+
+              <ContentGenres>
+                {movieDetails.genres.map((item, index) => (
+                  <p key={item.id}>
+                    {item.name}
+                    {index + 1 !== movieDetails.genres.length && ', '}
+                  </p>
+                ))}
+              </ContentGenres>
+
+              <p>{formatDate(movieDetails.release_date)}</p>
             </div>
             <AddFavorite
               title="Adicionar aos favoritos"
@@ -181,11 +185,19 @@ export function MovieDetails() {
           <div>
             <h1>Recomendações</h1>
             <ContentWeb>
-              <CarouselWeb movies={recommendations} />
+              <CarouselWeb
+                movies={recommendations.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </ContentWeb>
 
             <ContentMobile>
-              <CarouselMobile movies={recommendations} />
+              <CarouselMobile
+                movies={recommendations.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </ContentMobile>
           </div>
         )}

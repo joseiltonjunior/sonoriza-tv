@@ -18,6 +18,8 @@ import { LanguageProps } from './modules/language/reducer'
 import { ProfileProps } from './modules/profile/reducer'
 import { HistoricProps } from './modules/historic/reducer'
 import { FavoritesProps } from './modules/favorites/reducer'
+import { MoviesBlockProps } from './modules/moviesBlock/reducer'
+import { SearchProps } from './modules/search/reducer'
 
 export interface ReduxProps {
   theme: ThemeProps
@@ -25,12 +27,14 @@ export interface ReduxProps {
   profile: ProfileProps
   historic: HistoricProps
   favorites: FavoritesProps
+  moviesBlock: MoviesBlockProps
+  search: SearchProps
 }
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: [],
+  blacklist: ['search'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

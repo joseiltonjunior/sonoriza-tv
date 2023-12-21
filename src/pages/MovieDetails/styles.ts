@@ -16,6 +16,10 @@ export const Container = styled.div`
   h1 {
     margin-bottom: 0.5rem;
   }
+
+  @media (max-width: 900px) {
+    padding-right: 0;
+  }
 `
 
 export const ContentHeader = styled.div`
@@ -82,6 +86,12 @@ export const ContentInfo = styled.div`
     margin-bottom: 0.5rem;
   }
 
+  div.info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
   button:hover {
     background-color: ${shade(0.2, colors.Primary)};
   }
@@ -90,7 +100,6 @@ export const ContentInfo = styled.div`
 export const ContentGenres = styled.div`
   gap: 4px;
   display: flex;
-  margin-left: 1rem;
 `
 export const RowContent = styled.div`
   display: flex;

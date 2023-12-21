@@ -1,11 +1,13 @@
 import {
   Banner,
+  ButtonPreview,
   Carousel,
   ContentPreview,
   ImageBanner,
   InfoBanner,
 } from '@/pages/Home/styles'
 import { setHistoric } from '@/storage/modules/historic/reducer'
+import { setBlockList } from '@/storage/modules/moviesBlock/reducer'
 import { formatDate } from '@/utils/formatDate'
 
 import { MoviesProps } from '@/utils/types/movies'
@@ -45,14 +47,28 @@ export function CarouselMobile({ movies }: CarouselProps) {
                   alt="poster"
                 />
                 {isFocus === item.id && item.overview && (
-                  <ContentPreview>
+                  <ContentPreview
+                    animate={{
+                      y: isFocus === item.id && item.overview ? 0 : -30,
+                      opacity: isFocus === item.id && item.overview ? 1 : 0,
+                    }}
+                    transition={{ duration: 0.4 }}
+                  >
                     <p>{item.overview}</p>
-                    <Link
-                      to={`/movie/${item.id}`}
-                      onClick={() => dispatch(setHistoric(item))}
-                    >
-                      Ver mais
-                    </Link>
+                    <div>
+                      <ButtonPreview
+                        $variant="remove"
+                        onClick={() => dispatch(setBlockList(item.id))}
+                      >
+                        Não exibir
+                      </ButtonPreview>
+                      <Link
+                        to={`/movie/${item.id}`}
+                        onClick={() => dispatch(setHistoric(item))}
+                      >
+                        Ver mais
+                      </Link>
+                    </div>
                   </ContentPreview>
                 )}
               </ImageBanner>

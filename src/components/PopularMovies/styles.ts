@@ -6,7 +6,7 @@ export const Container = styled.div`
   display: flex;
   overflow: hidden;
   margin-bottom: -12rem;
-  padding-top: 70px;
+  /* padding-top: 70px; */
 
   div {
     position: relative;

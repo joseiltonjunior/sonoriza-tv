@@ -2,16 +2,24 @@ import { colors } from '@/styles/colors'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
-export const Container = styled.div`
+interface ButtonPreviewProps {
+  $variant: 'remove' | 'favorite' | 'view'
+}
+
+export const Content = styled.div`
   max-width: calc(100vw - ((100vw - 1180px) / 2));
-  margin: 2rem auto 0;
+  margin: 0 auto;
   width: 100%;
-  height: 100%;
+  margin-top: 2rem;
 
   @media (max-width: 900px) {
-    display: 1rem;
-    padding: 0 1rem;
+    padding-left: 1rem;
   }
+`
+
+export const Container = styled.div`
+  height: 100%;
+  padding-top: 70px;
 `
 export const Carousel = styled.div`
   display: flex;
@@ -52,7 +60,7 @@ export const ContentPreview = styled(motion.div)`
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    -webkit-line-clamp: 10;
+    -webkit-line-clamp: 8;
     margin: 0 6px;
     color: ${colors.Light};
   }
@@ -67,9 +75,30 @@ export const ContentPreview = styled(motion.div)`
     text-align: center;
 
     width: 100%;
-    margin-top: auto;
     padding: 2px 0;
   }
+
+  div {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+`
+export const ButtonPreview = styled.button<ButtonPreviewProps>`
+  background-color: ${(props) =>
+    props.$variant === 'favorite' ? '#16a34a' : '#dc2626'};
+  border: none;
+  color: ${colors.Light};
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+
+  padding: 2px 0;
 `
 
 export const ContentWeb = styled.div`
@@ -107,4 +136,15 @@ export const Title = styled.p`
   margin-bottom: 0.5rem;
   font-weight: bold;
   font-size: 1.2rem;
+`
+export const SearchContent = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 4rem 2rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding-right: 1rem;
+  }
 `

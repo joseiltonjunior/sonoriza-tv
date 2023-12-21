@@ -7,6 +7,8 @@ export const colors = {
   Dark_800: '#202024',
   Dark_900: '#121214',
 
+  Green_600: '#16a34a',
+
   Light: '#fff',
   Orange: '#ff8c00',
   Red_500: '#ff3333',
