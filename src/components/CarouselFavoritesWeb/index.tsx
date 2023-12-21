@@ -29,7 +29,7 @@ export function CarouselFavoritesWeb({ movies }: CarouselProps) {
     },
   })
 
-  const [isFocus, setIsFocus] = useState<number | undefined>()
+  const [isFocus, setIsFocus] = useState<number | undefined>(undefined)
   const dispatch = useDispatch()
 
   return (
@@ -46,6 +46,7 @@ export function CarouselFavoritesWeb({ movies }: CarouselProps) {
             />
 
             <ContentPreview
+              initial={{ opacity: 0 }}
               animate={{
                 y: isFocus === item.id && item.overview ? 0 : -30,
                 opacity: isFocus === item.id && item.overview ? 1 : 0,

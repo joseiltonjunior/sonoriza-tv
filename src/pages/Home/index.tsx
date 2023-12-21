@@ -26,6 +26,7 @@ import { AllMovies } from '@/components/AllMovies'
 import { ProfileProps } from '@/storage/modules/profile/reducer'
 import { SearchResults } from '@/components/SearchResults'
 import { GenreProps } from '@/storage/modules/genre/reducer'
+import { PersonProps } from '@/utils/types/person'
 
 export function Home() {
   const { lang } = useSelector<ReduxProps, LanguageProps>(
@@ -54,6 +55,7 @@ export function Home() {
 
   const [popularMovies, setPopularMovies] = useState<MoviesProps[]>()
   const [searchList, setSearchList] = useState<MoviesProps[] | undefined>()
+  const [personList, setPersonList] = useState<PersonProps[] | undefined>()
   const [topRatedMovies, setTopRatedMovies] = useState<MoviesProps[]>()
   const [allMovies, setAllMovies] = useState<MoviesProps[]>([])
   const [page, setPage] = useState(1)
@@ -62,11 +64,27 @@ export function Home() {
 
   const { showToast } = useToast()
 
+  const emptySerch = !searchList && !personList
+
   const handleSearchDB = useCallback(async () => {
     if (filter.length < 2) return setSearchList(undefined)
     await API.get(`/search/movie?query=${filter}`)
       .then((result) => {
         setSearchList(result.data.results)
+      })
+      .catch(() =>
+        showToast('Error while search items', {
+          type: 'error',
+          theme: 'colored',
+        }),
+      )
+  }, [filter, showToast])
+
+  const handleSearchPersonDB = useCallback(async () => {
+    if (filter.length < 2) return setPersonList(undefined)
+    await API.get(`/search/person?query=${filter}`)
+      .then((result) => {
+        setPersonList(result.data.results)
       })
       .catch(() =>
         showToast('Error while search items', {
@@ -144,17 +162,19 @@ export function Home() {
   useEffect(() => {
     if (filter.length > 0) {
       handleSearchDB()
+      handleSearchPersonDB()
     } else {
       setSearchList(undefined)
+      setPersonList(undefined)
     }
-  }, [filter, handleSearchDB])
+  }, [filter, handleSearchDB, handleSearchPersonDB])
 
   return (
     <>
       <Header isHome />
 
       <Container>
-        {popularMovies && !searchList && (
+        {popularMovies && emptySerch && (
           <PopularMovies
             movies={popularMovies.filter(
               (item) => !moviesBlock.includes(item.id),
@@ -162,9 +182,9 @@ export function Home() {
           />
         )}
         <Content>
-          {searchList && <SearchResults searchList={searchList} />}
+          <SearchResults searchList={searchList} personList={personList} />
 
-          {historic.length > 0 && !searchList && (
+          {historic.length > 0 && emptySerch && (
             <>
               <Title>{t('historic')}</Title>
               <ContentWeb>
@@ -185,7 +205,7 @@ export function Home() {
             </>
           )}
 
-          {favorites.length > 0 && !searchList && (
+          {favorites.length > 0 && emptySerch && (
             <div style={{ marginTop: 50 }}>
               <Title>{t('favorites')}</Title>
               <ContentWeb>
@@ -206,7 +226,7 @@ export function Home() {
             </div>
           )}
 
-          {topRatedMovies && !searchList && (
+          {topRatedMovies && emptySerch && (
             <div style={{ marginTop: 50 }}>
               <Title>{t('topRated')}</Title>
               <ContentWeb>
@@ -227,7 +247,7 @@ export function Home() {
             </div>
           )}
 
-          {allMovies && (
+          {allMovies && emptySerch && (
             <AllMovies
               moreItens={handleMoreItems}
               orderBy={sortBy}

@@ -107,7 +107,7 @@ export function AllMovies({
 
   return (
     <Container>
-      <h1>Todos os filmes</h1>
+      <h1>{t('popularMovies')}</h1>
       <div className="content">
         <Aside>
           <ContentOrder>
@@ -175,7 +175,7 @@ export function AllMovies({
         <Content>
           <div className="grid">
             {allMovies
-              .filter((item) => item.backdrop_path)
+              ?.filter((item) => item.backdrop_path)
               .map((item) => (
                 <Banner key={item.id}>
                   <ImageBanner
@@ -188,6 +188,7 @@ export function AllMovies({
                     />
 
                     <ContentPreview
+                      initial={{ opacity: 0 }}
                       animate={{
                         y: isFocus === item.id && item.overview ? 0 : -30,
                         opacity: isFocus === item.id && item.overview ? 1 : 0,

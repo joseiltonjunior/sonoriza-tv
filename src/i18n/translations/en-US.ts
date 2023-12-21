@@ -15,4 +15,5 @@ export const TRANSLATIONS_EN_US = {
   orderInfo: 'Order Results By',
   filter: 'Filter',
   genres: 'Genres',
+  popularMovies: 'Popular movies',
 }
