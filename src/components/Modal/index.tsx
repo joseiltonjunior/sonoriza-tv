@@ -17,6 +17,7 @@ import normal from '@/assets/thumb-1.png'
 import { Select } from '../Select'
 import { LanguageProps, setLang } from '@/storage/modules/language/reducer'
 import { ThemeProps, setTheme } from '@/storage/modules/theme/reducer'
+import i18next, { t } from 'i18next'
 
 export function Modal() {
   const { closeModal, visible } = useModal()
@@ -39,7 +40,7 @@ export function Modal() {
     <Container>
       <Overlay onClick={() => closeModal()} />
       <BoxModal>
-        <p>Quem está assistindo?</p>
+        <p>{t('profile')}</p>
         <Content>
           <Box
             $check={profile === 'kids'}
@@ -64,27 +65,30 @@ export function Modal() {
         </Content>
         <ContentMobile>
           <Select
-            label="Idioma"
+            label={t('lang')}
             options={[
-              { label: 'pt-BR 🇧🇷', value: 'pt-BR' },
-              { label: 'en-US 🇺🇸', value: 'en-US' },
+              { label: 'Português 🇧🇷', value: 'pt-BR' },
+              { label: 'Inglês 🇺🇸', value: 'en-US' },
             ]}
             placeholder="choose a item"
             value={lang}
             onChange={(e) => {
               closeModal()
+              const newLang = e.currentTarget.value.includes('pt')
+                ? 'pt-BR'
+                : 'en-US'
+              dispatch(setLang({ lang: newLang }))
+              i18next.changeLanguage(newLang)
               dispatch(
                 setLang({
-                  lang: e.currentTarget.value.includes('pt')
-                    ? 'pt-BR'
-                    : 'en-US',
+                  lang: newLang,
                 }),
               )
             }}
           />
 
           <Select
-            label="Tema"
+            label={t('theme')}
             options={[
               { label: 'Dark', value: 'dark' },
               { label: 'Light', value: 'light' },

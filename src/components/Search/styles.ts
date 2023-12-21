@@ -7,32 +7,21 @@ export const Container = styled.div`
   overflow: hidden;
 
   display: flex;
-  align-items: center;
+
+  width: 150px;
+
   gap: 4px;
 
-  padding: 5px 4px;
+  padding: 5px 8px;
 
   input {
     border: none;
     outline: none;
     box-shadow: none;
+    width: 90%;
   }
 
   input::placeholder {
     color: ${colors.Dark_400};
-  }
-
-  button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    outline: none;
-    box-shadow: none;
-  }
-
-  @media (max-width: 900px) {
-    width: 120px;
   }
 `

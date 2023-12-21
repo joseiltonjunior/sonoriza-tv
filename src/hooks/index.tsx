@@ -18,6 +18,8 @@ import { colors } from '@/styles/colors'
 import { ThemeProps } from '@/storage/modules/theme/reducer'
 import { ModalProvider } from './useModal'
 
+import '@/i18n'
+
 export function Hooks({ children }: PropsWithChildren) {
   const { theme } = useSelector<ReduxProps, ThemeProps>((item) => item.theme)
 

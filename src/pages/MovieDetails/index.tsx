@@ -32,6 +32,7 @@ import { ContentMobile, ContentWeb } from '../Home/styles'
 import { CarouselMobile } from '@/components/CarouselMobile'
 import { CarouselCreditsMobile } from '@/components/CarouselCreditsMobile'
 import { MoviesBlockProps } from '@/storage/modules/moviesBlock/reducer'
+import { t } from 'i18next'
 
 export function MovieDetails() {
   const { id } = useParams()
@@ -161,7 +162,7 @@ export function MovieDetails() {
 
             <h4>{movieDetails.tagline}</h4>
 
-            <h3>Sinopse</h3>
+            <h3>{t('synopsis')}</h3>
             <span>{movieDetails.overview}</span>
           </ContentInfo>
         </ContentBackground>
@@ -169,7 +170,7 @@ export function MovieDetails() {
       <Container>
         {credits && credits.length > 0 && (
           <div>
-            <h1>Elenco</h1>
+            <h1>{t('credits')}</h1>
 
             <ContentWeb>
               <CarouselCredits credits={credits} />
@@ -183,7 +184,7 @@ export function MovieDetails() {
 
         {recommendations && recommendations.length > 0 && (
           <div>
-            <h1>Recomendações</h1>
+            <h1>{t('recommendations')}</h1>
             <ContentWeb>
               <CarouselWeb
                 movies={recommendations.filter(

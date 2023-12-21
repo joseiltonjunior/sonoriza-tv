@@ -1,1 +1,18 @@
-export const TRANSLATIONS_PT_BR = {}
+export const TRANSLATIONS_PT_BR = {
+  viewMore: 'Ver mais',
+  hidden: 'Não exibir',
+  search: 'Buscar',
+  historic: 'Vistos recentemente',
+  favorites: 'Favoritos',
+  topRated: 'Mais Votados',
+  credits: 'Elenco',
+  recommendations: 'Recomendações',
+  profile: 'Quem está assistindo',
+  synopsis: 'Sinopse',
+  lang: 'Idioma',
+  theme: 'Tema',
+  order: 'Ordenar',
+  orderInfo: 'Odernar Resultados Por',
+  filter: 'Filtro',
+  genres: 'Gêneros',
+}

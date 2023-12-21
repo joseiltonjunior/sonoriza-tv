@@ -28,6 +28,7 @@ import { ProfileProps } from '@/storage/modules/profile/reducer'
 import { Search } from '../Search'
 
 import { SearchProps, setFilter } from '@/storage/modules/search/reducer'
+import i18next, { t } from 'i18next'
 
 interface HeaderProps {
   isHome?: boolean
@@ -66,7 +67,7 @@ export function Header({ isHome }: HeaderProps) {
           {isHome && (
             <Search
               id="search"
-              placeholder="Buscar"
+              placeholder={t('search')}
               value={filter}
               autoComplete="off"
               onChange={(e) => dispatch(setFilter(e.currentTarget.value))}
@@ -74,11 +75,11 @@ export function Header({ isHome }: HeaderProps) {
           )}
           <div className="hiddenMobile">
             <Button
-              onClick={() =>
-                dispatch(
-                  setLang({ lang: lang === 'pt-BR' ? 'en-US' : 'pt-BR' }),
-                )
-              }
+              onClick={() => {
+                const newLang = lang === 'pt-BR' ? 'en-US' : 'pt-BR'
+                dispatch(setLang({ lang: newLang }))
+                i18next.changeLanguage(newLang)
+              }}
             >
               <Brand src={lang === 'pt-BR' ? brazil : eua} alt="brand" />
             </Button>
