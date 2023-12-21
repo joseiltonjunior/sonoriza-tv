@@ -3,6 +3,7 @@ import { useKeenSlider } from 'keen-slider/react'
 import { Container, ContentInfo } from './styles'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { t } from 'i18next'
 
 interface PopularMoviesProps {
   movies: MoviesProps[]
@@ -40,7 +41,7 @@ export function PopularMovies({ movies }: PopularMoviesProps) {
 
             <p>{item.overview}</p>
 
-            <Link to={`/movie/${item.id}`}>Ver mais</Link>
+            <Link to={`/movie/${item.id}`}>{t('viewMore')}</Link>
           </ContentInfo>
         </div>
       ))}

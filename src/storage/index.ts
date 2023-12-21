@@ -20,6 +20,7 @@ import { HistoricProps } from './modules/historic/reducer'
 import { FavoritesProps } from './modules/favorites/reducer'
 import { MoviesBlockProps } from './modules/moviesBlock/reducer'
 import { SearchProps } from './modules/search/reducer'
+import { GenreProps } from './modules/genre/reducer'
 
 export interface ReduxProps {
   theme: ThemeProps
@@ -29,12 +30,13 @@ export interface ReduxProps {
   favorites: FavoritesProps
   moviesBlock: MoviesBlockProps
   search: SearchProps
+  genre: GenreProps
 }
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['search'],
+  blacklist: ['search', 'genre'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

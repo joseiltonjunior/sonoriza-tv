@@ -1,3 +1,4 @@
+import { colors } from '@/styles/colors'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -17,5 +18,7 @@ export const Container = styled.div`
     padding: 6px 12px;
     border-radius: 4px;
     border: none;
+
+    background-color: ${colors.Dark_100};
   }
 `
