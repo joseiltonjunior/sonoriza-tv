@@ -89,3 +89,15 @@ export const Content = styled.div`
 
   margin-top: 1rem;
 `
+export const ContentMobile = styled.div`
+  width: 100%;
+  margin-top: 1rem;
+
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media (max-width: 900px) {
+    display: flex;
+  }
+`

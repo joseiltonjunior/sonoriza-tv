@@ -6,6 +6,7 @@ import profile from './profile/reducer'
 import historic from './historic/reducer'
 import favorites from './favorites/reducer'
 import moviesBlock from './moviesBlock/reducer'
+import search from './search/reducer'
 
 export default combineReducers({
   theme,
@@ -14,4 +15,5 @@ export default combineReducers({
   historic,
   favorites,
   moviesBlock,
+  search,
 })

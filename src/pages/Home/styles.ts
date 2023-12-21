@@ -6,16 +6,20 @@ interface ButtonPreviewProps {
   $variant: 'remove' | 'favorite' | 'view'
 }
 
-export const Container = styled.div`
+export const Content = styled.div`
   max-width: calc(100vw - ((100vw - 1180px) / 2));
-  margin: 2rem auto 0;
+  margin: 0 auto;
   width: 100%;
-  height: 100%;
+  margin-top: 2rem;
 
   @media (max-width: 900px) {
-    display: 1rem;
-    padding: 0 1rem;
+    padding-left: 1rem;
   }
+`
+
+export const Container = styled.div`
+  height: 100%;
+  padding-top: 70px;
 `
 export const Carousel = styled.div`
   display: flex;
@@ -132,4 +136,15 @@ export const Title = styled.p`
   margin-bottom: 0.5rem;
   font-weight: bold;
   font-size: 1.2rem;
+`
+export const SearchContent = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 4rem 2rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding-right: 1rem;
+  }
 `

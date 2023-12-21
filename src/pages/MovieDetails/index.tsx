@@ -15,7 +15,6 @@ import {
   ContentHeader,
   ContentInfo,
   MovieBackgroud,
-  RowContent,
 } from './styles'
 import { Header } from '@/components/Header'
 import { formatDate } from '@/utils/formatDate'
@@ -135,19 +134,19 @@ export function MovieDetails() {
           />
 
           <ContentInfo>
-            <div>
+            <div className="info">
               <h1>{movieDetails.title}</h1>
-              <RowContent>
-                <p>{formatDate(movieDetails.release_date)}</p>
-                <ContentGenres>
-                  {movieDetails.genres.map((item, index) => (
-                    <p key={item.id}>
-                      {item.name}
-                      {index + 1 !== movieDetails.genres.length && ', '}
-                    </p>
-                  ))}
-                </ContentGenres>
-              </RowContent>
+
+              <ContentGenres>
+                {movieDetails.genres.map((item, index) => (
+                  <p key={item.id}>
+                    {item.name}
+                    {index + 1 !== movieDetails.genres.length && ', '}
+                  </p>
+                ))}
+              </ContentGenres>
+
+              <p>{formatDate(movieDetails.release_date)}</p>
             </div>
             <AddFavorite
               title="Adicionar aos favoritos"

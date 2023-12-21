@@ -14,6 +14,16 @@ export const Container = styled.header`
   justify-content: space-between;
 
   padding: 0 1rem;
+
+  .hiddenMobile {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
 `
 export const LimitContent = styled.div`
   max-width: calc(100vw - ((100vw - 1180px) / 2));
@@ -78,4 +88,20 @@ export const Content = styled.div`
 export const Brand = styled.img`
   width: 20px;
   height: 20px;
+`
+export const HomeButtom = styled.div`
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  @media (max-width: 900px) {
+    display: flex;
+  }
+`
+
+export const ContentLeft = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
 `
