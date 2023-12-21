@@ -30,7 +30,7 @@ export function CarouselMobile({ movies }: CarouselProps) {
 
   const dispatch = useDispatch()
 
-  const [isFocus, setIsFocus] = useState<number | undefined>()
+  const [isFocus, setIsFocus] = useState<number | undefined>(undefined)
 
   return (
     <Carousel ref={sliderRef} className="ken-slider">
@@ -48,6 +48,7 @@ export function CarouselMobile({ movies }: CarouselProps) {
                 />
                 {isFocus === item.id && item.overview && (
                   <ContentPreview
+                    initial={{ opacity: 0 }}
                     animate={{
                       y: isFocus === item.id && item.overview ? 0 : -30,
                       opacity: isFocus === item.id && item.overview ? 1 : 0,

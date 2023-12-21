@@ -15,4 +15,5 @@ export const TRANSLATIONS_PT_BR = {
   orderInfo: 'Odernar Resultados Por',
   filter: 'Filtro',
   genres: 'Gêneros',
+  popularMovies: 'Filmes populares',
 }
