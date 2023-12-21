@@ -9,6 +9,7 @@ import {
   LimitContent,
   HomeButtom,
   ContentLeft,
+  Anchor,
 } from './styles'
 import { ReduxProps } from '@/storage'
 import { ThemeProps, setTheme } from '@/storage/modules/theme/reducer'
@@ -16,7 +17,7 @@ import logo from '@/assets/logo.png'
 import brazil from '@/assets/brazil.png'
 import eua from '@/assets/eua.png'
 
-import { MdDarkMode, MdLightMode, MdMenu } from 'react-icons/md'
+import { MdDarkMode, MdLightMode, MdMenu, MdStar } from 'react-icons/md'
 import { colors } from '@/styles/colors'
 import { LanguageProps, setLang } from '@/storage/modules/language/reducer'
 import { useModal } from '@/hooks/useModal'
@@ -58,7 +59,7 @@ export function Header({ isHome }: HeaderProps) {
             <MdMenu size={30} color={colors.Light} />
           </HomeButtom>
 
-          <Link to={'/'}>
+          <Link to={'/'} title="Home">
             <Logo src={logo} alt="logo" />
           </Link>
         </ContentLeft>
@@ -75,6 +76,7 @@ export function Header({ isHome }: HeaderProps) {
           )}
           <div className="hiddenMobile">
             <Button
+              title={t('lang')}
               onClick={() => {
                 const newLang = lang === 'pt-BR' ? 'en-US' : 'pt-BR'
                 dispatch(setLang({ lang: newLang }))
@@ -85,6 +87,7 @@ export function Header({ isHome }: HeaderProps) {
             </Button>
 
             <Button
+              title={t('theme')}
               onClick={() =>
                 dispatch(
                   setTheme({ theme: theme === 'dark' ? 'light' : 'dark' }),
@@ -97,7 +100,11 @@ export function Header({ isHome }: HeaderProps) {
                 <MdDarkMode color={colors.Light} size={20} />
               )}
             </Button>
-            <Profile onClick={() => openModal()}>
+
+            <Anchor title={t('favorites')} to={'/favorites'}>
+              <MdStar color={colors.Yellow_600} size={20} />
+            </Anchor>
+            <Profile onClick={() => openModal()} title="Profile">
               <img src={profile === 'kids' ? kids : normal} alt="profile" />
             </Profile>
           </div>

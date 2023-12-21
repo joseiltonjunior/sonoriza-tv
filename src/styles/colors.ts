@@ -9,6 +9,8 @@ export const colors = {
 
   Green_600: '#16a34a',
 
+  Yellow_600: '#ca8a04',
+
   Light: '#fff',
   Orange: '#ff8c00',
   Red_500: '#ff3333',

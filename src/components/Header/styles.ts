@@ -1,4 +1,5 @@
 import { colors } from '@/styles/colors'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const Container = styled.header`
@@ -40,6 +41,19 @@ export const Logo = styled.img`
 `
 
 export const Button = styled.button`
+  height: fit-content;
+
+  padding: 4px;
+  border-radius: 4px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+`
+
+export const Anchor = styled(Link)`
   height: fit-content;
 
   padding: 4px;

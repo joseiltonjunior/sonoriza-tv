@@ -7,6 +7,7 @@ import {
   Box,
   Content,
   ContentMobile,
+  Anchor,
 } from './styles'
 import { ProfileProps, setProfile } from '@/storage/modules/profile/reducer'
 import { ReduxProps } from '@/storage'
@@ -104,6 +105,10 @@ export function Modal() {
               )
             }}
           />
+
+          <Anchor onClick={() => closeModal()} to={'/favorites'}>
+            {t('favorites')}
+          </Anchor>
         </ContentMobile>
       </BoxModal>
     </Container>
