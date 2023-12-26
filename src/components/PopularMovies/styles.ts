@@ -6,7 +6,6 @@ export const Container = styled.div`
   display: flex;
   overflow: hidden;
   margin-bottom: -12rem;
-  /* padding-top: 70px; */
 
   div {
     position: relative;
@@ -49,7 +48,7 @@ export const ContentInfo = styled.div`
     font-weight: 500;
   }
 
-  a {
+  button {
     background-color: ${colors.Primary};
 
     border-radius: 20px;
@@ -57,16 +56,16 @@ export const ContentInfo = styled.div`
     font-weight: bold;
     color: ${colors.Light};
     width: fit-content;
-
-    text-decoration: none;
+    border: none;
+    cursor: pointer;
 
     margin-top: 2rem;
 
     transition: all 0.2s;
-  }
 
-  a:hover {
-    background-color: ${shade(0.2, colors.Primary)};
+    &:hover {
+      background-color: ${shade(0.2, colors.Primary)};
+    }
   }
 
   @media (max-width: 900px) {

@@ -2,7 +2,7 @@ import { MoviesProps } from '@/utils/types/movies'
 import { useKeenSlider } from 'keen-slider/react'
 import { Container, ContentInfo } from './styles'
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { t } from 'i18next'
 
 interface PopularMoviesProps {
@@ -15,6 +15,8 @@ export function PopularMovies({ movies }: PopularMoviesProps) {
       perView: 1,
     },
   })
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -41,7 +43,12 @@ export function PopularMovies({ movies }: PopularMoviesProps) {
 
             <p>{item.overview}</p>
 
-            <Link to={`/movie/${item.id}`}>{t('viewMore')}</Link>
+            <button
+              className="viewMore"
+              onClick={() => navigate(`/movie/${item.id}`)}
+            >
+              {t('viewMore')}
+            </button>
           </ContentInfo>
         </div>
       ))}

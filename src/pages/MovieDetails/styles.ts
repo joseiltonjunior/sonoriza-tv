@@ -120,3 +120,15 @@ export const AddFavorite = styled.button`
   cursor: pointer;
   transition: all 0.2s;
 `
+
+export const ContentLoading = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+
+  div {
+    max-width: 600px;
+  }
+`

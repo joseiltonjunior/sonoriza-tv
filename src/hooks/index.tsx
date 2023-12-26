@@ -28,8 +28,8 @@ export function Hooks({ children }: PropsWithChildren) {
       <ModalProvider>
         <GlobalStyle />
         <SkeletonTheme
-          baseColor={colors.Dark_800}
-          highlightColor={colors.Dark_300}
+          baseColor={colors.Dark_700}
+          highlightColor={colors.Primary}
         >
           {children}
         </SkeletonTheme>

@@ -1,10 +1,7 @@
 import { colors } from '@/styles/colors'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-
-interface ButtonPreviewProps {
-  $variant: 'remove' | 'favorite' | 'view'
-}
+import { shade } from 'polished'
 
 export const Content = styled.div`
   max-width: calc(100vw - ((100vw - 1180px) / 2));
@@ -65,7 +62,7 @@ export const ContentPreview = styled(motion.div)`
     color: ${colors.Light};
   }
 
-  a {
+  button.viewMore {
     background-color: ${colors.Primary};
     border: none;
     color: ${colors.Light};
@@ -76,6 +73,34 @@ export const ContentPreview = styled(motion.div)`
 
     width: 100%;
     padding: 2px 0;
+
+    cursor: pointer;
+
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: ${shade(0.2, colors.Primary)};
+    }
+  }
+
+  button.remove {
+    background-color: ${colors.Red_500};
+    border: none;
+    color: ${colors.Light};
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+
+    padding: 2px 0;
+
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: ${shade(0.2, colors.Red_500)};
+    }
   }
 
   div {
@@ -85,20 +110,6 @@ export const ContentPreview = styled(motion.div)`
     width: 100%;
     gap: 8px;
   }
-`
-export const ButtonPreview = styled.button<ButtonPreviewProps>`
-  background-color: ${(props) =>
-    props.$variant === 'favorite' ? '#16a34a' : '#dc2626'};
-  border: none;
-  color: ${colors.Light};
-  border-radius: 4px;
-  font-weight: bold;
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-
-  padding: 2px 0;
 `
 
 export const ContentWeb = styled.div`

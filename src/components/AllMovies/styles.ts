@@ -69,15 +69,20 @@ export const Content = styled.div`
       gap: 1rem;
     }
   }
+
+  div.moreButton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
 `
 
 export const ViewMore = styled.button`
-  width: 100%;
-  padding: 8px 0;
-  border-radius: 6px;
+  width: fit-content;
+  padding: 0.5rem 4rem;
+  border-radius: 16px;
   border: none;
-
-  margin-top: 2rem;
 
   font-weight: bold;
 

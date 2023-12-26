@@ -11,12 +11,11 @@ import {
 } from './styles'
 import {
   Banner,
-  ButtonPreview,
   ContentPreview,
   ImageBanner,
   InfoBanner,
 } from '@/pages/Home/styles'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { formatDate } from '@/utils/formatDate'
 import { setBlockList } from '@/storage/modules/moviesBlock/reducer'
 import { setHistoric } from '@/storage/modules/historic/reducer'
@@ -81,6 +80,7 @@ export function AllMovies({
   const { genre } = useSelector<ReduxProps, GenreProps>((item) => item.genre)
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const { showToast } = useToast()
 
@@ -197,18 +197,21 @@ export function AllMovies({
                     >
                       <p>{item.overview}</p>
                       <div>
-                        <ButtonPreview
-                          $variant="remove"
+                        <button
+                          className="remove"
                           onClick={() => dispatch(setBlockList(item.id))}
                         >
                           Não exibir
-                        </ButtonPreview>
-                        <Link
-                          to={`/movie/${item.id}`}
-                          onClick={() => dispatch(setHistoric(item))}
+                        </button>
+                        <button
+                          className="viewMore"
+                          onClick={() => {
+                            navigate(`/movie/${item.id}`)
+                            dispatch(setHistoric(item))
+                          }}
                         >
                           Ver mais
-                        </Link>
+                        </button>
                       </div>
                     </ContentPreview>
                   </ImageBanner>
@@ -219,7 +222,9 @@ export function AllMovies({
                 </Banner>
               ))}
           </div>
-          <ViewMore onClick={moreItens}>Carregar mais</ViewMore>
+          <div className="moreButton">
+            <ViewMore onClick={moreItens}>Carregar mais</ViewMore>
+          </div>
         </Content>
       </div>
     </Container>

@@ -1,6 +1,5 @@
 import {
   Banner,
-  ButtonPreview,
   ContentPreview,
   ImageBanner,
   InfoBanner,
@@ -17,7 +16,7 @@ import { MoviesProps } from '@/utils/types/movies'
 import { PersonProps } from '@/utils/types/person'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 interface SearchResultsProps {
   searchList?: MoviesProps[]
@@ -32,6 +31,7 @@ export function SearchResults({ searchList, personList }: SearchResultsProps) {
   )
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   return (
     <SearchContent>
@@ -75,18 +75,21 @@ export function SearchResults({ searchList, personList }: SearchResultsProps) {
               >
                 <p>{item.overview}</p>
                 <div>
-                  <ButtonPreview
-                    $variant="remove"
+                  <button
+                    className="remove"
                     onClick={() => dispatch(setBlockList(item.id))}
                   >
                     Não exibir
-                  </ButtonPreview>
-                  <Link
-                    to={`/movie/${item.id}`}
-                    onClick={() => dispatch(setHistoric(item))}
+                  </button>
+                  <button
+                    className="viewMore"
+                    onClick={() => {
+                      navigate(`/movie/${item.id}`)
+                      dispatch(setHistoric(item))
+                    }}
                   >
                     Ver mais
-                  </Link>
+                  </button>
                 </div>
               </ContentPreview>
             </ImageBanner>
