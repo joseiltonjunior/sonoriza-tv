@@ -1,6 +1,5 @@
 import {
   Banner,
-  ButtonPreview,
   Carousel,
   ContentPreview,
   ImageBanner,
@@ -15,7 +14,7 @@ import { useKeenSlider } from 'keen-slider/react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 interface CarouselProps {
   movies: MovieDetailsProps[]
@@ -31,6 +30,7 @@ export function CarouselFavoritesWeb({ movies }: CarouselProps) {
 
   const [isFocus, setIsFocus] = useState<number | undefined>(undefined)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   return (
     <Carousel ref={sliderRef} className="ken-slider">
@@ -55,13 +55,18 @@ export function CarouselFavoritesWeb({ movies }: CarouselProps) {
             >
               <p>{item.overview}</p>
               <div>
-                <ButtonPreview
-                  $variant="remove"
+                <button
+                  className="remove"
                   onClick={() => dispatch(setBlockList(item.id))}
                 >
                   Não exibir
-                </ButtonPreview>
-                <Link to={`/movie/${item.id}`}>Ver mais</Link>
+                </button>
+                <button
+                  className="viewMore"
+                  onClick={() => navigate(`/movie/${item.id}`)}
+                >
+                  Ver mais
+                </button>
               </div>
             </ContentPreview>
           </ImageBanner>

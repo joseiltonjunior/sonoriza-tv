@@ -4,6 +4,9 @@ import { ReduxProps } from '@/storage'
 import { LanguageProps } from '@/storage/modules/language/reducer'
 import { MovieDetailsProps } from '@/utils/types/movieDetails'
 
+import Lottie from 'lottie-react'
+import movieLoading from '@/assets/movie-loading.json'
+
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -14,6 +17,7 @@ import {
   ContentGenres,
   ContentHeader,
   ContentInfo,
+  ContentLoading,
   MovieBackgroud,
 } from './styles'
 import { Header } from '@/components/Header'
@@ -60,7 +64,9 @@ export function MovieDetails() {
   const handleGetMovieDB = useCallback(async () => {
     await API.get(`/movie/${id}?language=${lang}`)
       .then((result) => {
-        setMovieDetails(result.data)
+        setTimeout(() => {
+          setMovieDetails(result.data)
+        }, 2500)
       })
       .catch(() =>
         showToast('Error while fetching details movie', {
@@ -118,7 +124,17 @@ export function MovieDetails() {
     handleGetRecommendationsMovieDB,
   ])
 
-  if (!movieDetails) return
+  if (!movieDetails)
+    return (
+      <>
+        <Header />
+        <ContentLoading>
+          <div>
+            <Lottie animationData={movieLoading} loop={true} />
+          </div>
+        </ContentLoading>
+      </>
+    )
 
   return (
     <>

@@ -1,6 +1,5 @@
 import {
   Banner,
-  ButtonPreview,
   Carousel,
   ContentPreview,
   ImageBanner,
@@ -14,7 +13,7 @@ import { MoviesProps } from '@/utils/types/movies'
 import { useKeenSlider } from 'keen-slider/react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 interface CarouselProps {
   movies: MoviesProps[]
@@ -29,6 +28,7 @@ export function CarouselMobile({ movies }: CarouselProps) {
   })
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [isFocus, setIsFocus] = useState<number | undefined>(undefined)
 
@@ -57,18 +57,20 @@ export function CarouselMobile({ movies }: CarouselProps) {
                   >
                     <p>{item.overview}</p>
                     <div>
-                      <ButtonPreview
-                        $variant="remove"
+                      <button
+                        className="remove"
                         onClick={() => dispatch(setBlockList(item.id))}
                       >
                         Não exibir
-                      </ButtonPreview>
-                      <Link
-                        to={`/movie/${item.id}`}
-                        onClick={() => dispatch(setHistoric(item))}
+                      </button>
+                      <button
+                        onClick={() => {
+                          navigate(`/movie/${item.id}`)
+                          dispatch(setHistoric(item))
+                        }}
                       >
                         Ver mais
-                      </Link>
+                      </button>
                     </div>
                   </ContentPreview>
                 )}
