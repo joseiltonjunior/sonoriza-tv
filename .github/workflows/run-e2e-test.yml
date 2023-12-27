@@ -36,4 +36,4 @@ jobs:
         run: yarn test
 
       - name: Stop the server
-        run: kill $(lsof -t -i:3000) $(lsof -t -i:3001)
+        run: kill $(lsof -t -i:3000)
