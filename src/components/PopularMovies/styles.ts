@@ -35,6 +35,10 @@ export const ContentInfo = styled.div`
 
   justify-content: center;
 
+  @media (max-width: 1250px) {
+    padding: 0 1rem;
+  }
+
   h1 {
     font-size: 5rem;
     display: -webkit-box;

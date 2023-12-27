@@ -18,7 +18,6 @@ export const Container = styled.div`
     @media (max-width: 900px) {
       grid-template-columns: 1fr;
       gap: 1rem;
-      margin-right: 1rem;
     }
   }
 `
@@ -64,8 +63,22 @@ export const Content = styled.div`
     grid-template-columns: repeat(5, 1fr);
     gap: 2rem 1rem;
 
-    @media (max-width: 900px) {
-      grid-template-columns: 1fr 1fr;
+    transition: all 0.2s;
+
+    @media (max-width: 1250px) {
+      grid-template-columns: repeat(4, 1fr);
+
+      gap: 1rem;
+    }
+
+    @media (max-width: 1050px) {
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 1rem;
+    }
+
+    @media (max-width: 700px) {
+      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
   }

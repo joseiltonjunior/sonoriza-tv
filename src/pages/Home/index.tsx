@@ -2,7 +2,7 @@ import { Header } from '@/components/Header'
 import { ReduxProps } from '@/storage'
 
 import { useSelector } from 'react-redux'
-import { Container, Content, ContentMobile, ContentWeb, Title } from './styles'
+import { Container, Content, Title } from './styles'
 import { useCallback, useEffect, useState } from 'react'
 import API from '@/services/api'
 
@@ -10,12 +10,12 @@ import { LanguageProps } from '@/storage/modules/language/reducer'
 import { MoviesProps } from '@/utils/types/movies'
 
 import { useToast } from '@/hooks/useToast'
-import { CarouselWeb } from '@/components/CarouselWeb'
-import { CarouselMobile } from '@/components/CarouselMobile'
+import { Carousel } from '@/components/Carousel'
+
 import { HistoricProps } from '@/storage/modules/historic/reducer'
 import { FavoritesProps } from '@/storage/modules/favorites/reducer'
-import { CarouselFavoritesWeb } from '@/components/CarouselFavoritesWeb'
-import { CarouselFavoritesMobile } from '@/components/CarouselFavoritesMobile'
+import { CarouselFavorites } from '@/components/CarouselFavorites'
+
 import { PopularMovies } from '@/components/PopularMovies'
 import { MoviesBlockProps } from '@/storage/modules/moviesBlock/reducer'
 
@@ -188,81 +188,58 @@ export function Home() {
           />
         )}
         <Content>
-          <SearchResults searchList={searchList} personList={personList} />
+          <div className="paddingRight">
+            <SearchResults searchList={searchList} personList={personList} />
+          </div>
 
           {historic.length > 0 && emptySerch && (
             <>
               <Title>{t('historic')}</Title>
-              <ContentWeb>
-                <CarouselWeb
-                  movies={historic.filter(
-                    (item) => !moviesBlock.includes(item.id),
-                  )}
-                />
-              </ContentWeb>
 
-              <ContentMobile>
-                <CarouselMobile
-                  movies={historic.filter(
-                    (item) => !moviesBlock.includes(item.id),
-                  )}
-                />
-              </ContentMobile>
+              <Carousel
+                movies={historic.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </>
           )}
 
           {favorites.length > 0 && emptySerch && (
             <div style={{ marginTop: 50 }}>
               <Title>{t('favorites')}</Title>
-              <ContentWeb>
-                <CarouselFavoritesWeb
-                  movies={favorites.filter(
-                    (item) => !moviesBlock.includes(item.id),
-                  )}
-                />
-              </ContentWeb>
 
-              <ContentMobile>
-                <CarouselFavoritesMobile
-                  movies={favorites.filter(
-                    (item) => !moviesBlock.includes(item.id),
-                  )}
-                />
-              </ContentMobile>
+              <CarouselFavorites
+                movies={favorites.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </div>
           )}
 
           {topRatedMovies && emptySerch && (
             <div style={{ marginTop: 50 }}>
               <Title>{t('topRated')}</Title>
-              <ContentWeb>
-                <CarouselWeb
-                  movies={topRatedMovies.filter(
-                    (item) => !moviesBlock.includes(item.id),
-                  )}
-                />
-              </ContentWeb>
 
-              <ContentMobile>
-                <CarouselMobile
-                  movies={topRatedMovies.filter(
-                    (item) => !moviesBlock.includes(item.id),
-                  )}
-                />
-              </ContentMobile>
+              <Carousel
+                movies={topRatedMovies.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </div>
           )}
 
-          {allMovies && emptySerch && (
-            <AllMovies
-              moreItens={handleMoreItems}
-              orderBy={sortBy}
-              setOrderBy={setSortBy}
-              allMovies={allMovies.filter(
-                (item) => !moviesBlock.includes(item.id),
-              )}
-            />
-          )}
+          <div className="paddingRight">
+            {allMovies && emptySerch && (
+              <AllMovies
+                moreItens={handleMoreItems}
+                orderBy={sortBy}
+                setOrderBy={setSortBy}
+                allMovies={allMovies.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
+            )}
+          </div>
         </Content>
       </Container>
     </>

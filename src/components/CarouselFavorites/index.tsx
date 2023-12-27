@@ -1,6 +1,6 @@
 import {
   Banner,
-  Carousel,
+  CarouselContent,
   ContentPreview,
   ImageBanner,
   InfoBanner,
@@ -11,7 +11,7 @@ import { formatDate } from '@/utils/formatDate'
 import { MovieDetailsProps } from '@/utils/types/movieDetails'
 
 import { useKeenSlider } from 'keen-slider/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { useNavigate } from 'react-router-dom'
@@ -20,10 +20,11 @@ interface CarouselProps {
   movies: MovieDetailsProps[]
 }
 
-export function CarouselFavoritesWeb({ movies }: CarouselProps) {
+export function CarouselFavorites({ movies }: CarouselProps) {
+  const [perView, setPerView] = useState(6)
   const [sliderRef] = useKeenSlider({
     slides: {
-      perView: 6,
+      perView,
       spacing: 16,
     },
   })
@@ -32,8 +33,36 @@ export function CarouselFavoritesWeb({ movies }: CarouselProps) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth
+
+      if (screenWidth < 1250 && screenWidth > 1100) {
+        setPerView(5)
+      } else if (screenWidth < 1100 && screenWidth > 900) {
+        setPerView(4)
+      } else if (screenWidth < 900 && screenWidth > 700) {
+        setPerView(3.5)
+      } else if (screenWidth < 700 && screenWidth > 500) {
+        setPerView(2.5)
+      } else if (screenWidth < 500) {
+        setPerView(1.5)
+      } else {
+        setPerView(6)
+      }
+    }
+
+    handleResize()
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   return (
-    <Carousel ref={sliderRef} className="ken-slider">
+    <CarouselContent ref={sliderRef} className="ken-slider">
       {movies.map((item) => (
         <Banner key={item.id} className="keen-slider__slide">
           <ImageBanner
@@ -76,6 +105,6 @@ export function CarouselFavoritesWeb({ movies }: CarouselProps) {
           </InfoBanner>
         </Banner>
       ))}
-    </Carousel>
+    </CarouselContent>
   )
 }
