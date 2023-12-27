@@ -33,4 +33,4 @@ jobs:
         run: yarn test
 
       - name: Stop the server
-        run: pkill -f "vite"
+        run: kill $(lsof -t -i:3000) || true
