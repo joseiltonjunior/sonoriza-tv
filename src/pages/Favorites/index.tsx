@@ -3,9 +3,9 @@ import { Container, Content } from './styles'
 import { useSelector } from 'react-redux'
 import { FavoritesProps } from '@/storage/modules/favorites/reducer'
 import { ReduxProps } from '@/storage'
-import { ContentMobile, ContentWeb, Title } from '../Home/styles'
-import { CarouselFavoritesMobile } from '@/components/CarouselFavoritesMobile'
-import { CarouselFavoritesWeb } from '@/components/CarouselFavoritesWeb'
+import { Title } from '../Home/styles'
+
+import { CarouselFavorites } from '@/components/CarouselFavorites'
 import { MoviesBlockProps } from '@/storage/modules/moviesBlock/reducer'
 import { t } from 'i18next'
 import { useCallback, useEffect, useState } from 'react'
@@ -13,8 +13,7 @@ import { MoviesProps } from '@/utils/types/movies'
 import { LanguageProps } from '@/storage/modules/language/reducer'
 import API from '@/services/api'
 import { useToast } from '@/hooks/useToast'
-import { CarouselWeb } from '@/components/CarouselWeb'
-import { CarouselMobile } from '@/components/CarouselMobile'
+import { Carousel } from '@/components/Carousel'
 
 export function Favorites() {
   const { favorites } = useSelector<ReduxProps, FavoritesProps>(
@@ -65,42 +64,24 @@ export function Favorites() {
           {favorites.length > 0 && (
             <div style={{ marginTop: 50 }}>
               <Title>{t('favorites')}</Title>
-              <ContentWeb>
-                <CarouselFavoritesWeb
-                  movies={favorites.filter(
-                    (item) => !moviesBlock.includes(item.id),
-                  )}
-                />
-              </ContentWeb>
 
-              <ContentMobile>
-                <CarouselFavoritesMobile
-                  movies={favorites.filter(
-                    (item) => !moviesBlock.includes(item.id),
-                  )}
-                />
-              </ContentMobile>
+              <CarouselFavorites
+                movies={favorites.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </div>
           )}
 
           {recommendations && recommendations.length > 0 && (
             <div style={{ marginTop: 50 }}>
               <Title>{t('recommendations')}</Title>
-              <ContentWeb>
-                <CarouselWeb
-                  movies={recommendations.filter(
-                    (item) => !moviesBlock.includes(item.id),
-                  )}
-                />
-              </ContentWeb>
 
-              <ContentMobile>
-                <CarouselMobile
-                  movies={recommendations.filter(
-                    (item) => !moviesBlock.includes(item.id),
-                  )}
-                />
-              </ContentMobile>
+              <Carousel
+                movies={recommendations.filter(
+                  (item) => !moviesBlock.includes(item.id),
+                )}
+              />
             </div>
           )}
         </Content>

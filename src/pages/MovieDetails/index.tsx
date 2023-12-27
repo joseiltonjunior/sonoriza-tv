@@ -31,10 +31,8 @@ import {
 import { CreditsProps } from '@/utils/types/credits'
 import { CarouselCredits } from '@/components/CarouselCredits'
 import { MoviesProps } from '@/utils/types/movies'
-import { CarouselWeb } from '@/components/CarouselWeb'
-import { ContentMobile, ContentWeb } from '../Home/styles'
-import { CarouselMobile } from '@/components/CarouselMobile'
-import { CarouselCreditsMobile } from '@/components/CarouselCreditsMobile'
+import { Carousel } from '@/components/Carousel'
+
 import { MoviesBlockProps } from '@/storage/modules/moviesBlock/reducer'
 import { t } from 'i18next'
 
@@ -188,34 +186,19 @@ export function MovieDetails() {
           <div>
             <h1>{t('credits')}</h1>
 
-            <ContentWeb>
-              <CarouselCredits credits={credits} />
-            </ContentWeb>
-
-            <ContentMobile>
-              <CarouselCreditsMobile credits={credits} />
-            </ContentMobile>
+            <CarouselCredits credits={credits} />
           </div>
         )}
 
         {recommendations && recommendations.length > 0 && (
           <div>
             <h1>{t('recommendations')}</h1>
-            <ContentWeb>
-              <CarouselWeb
-                movies={recommendations.filter(
-                  (item) => !moviesBlock.includes(item.id),
-                )}
-              />
-            </ContentWeb>
 
-            <ContentMobile>
-              <CarouselMobile
-                movies={recommendations.filter(
-                  (item) => !moviesBlock.includes(item.id),
-                )}
-              />
-            </ContentMobile>
+            <Carousel
+              movies={recommendations.filter(
+                (item) => !moviesBlock.includes(item.id),
+              )}
+            />
           </div>
         )}
       </Container>

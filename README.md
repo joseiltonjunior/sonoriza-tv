@@ -2,9 +2,6 @@
 
 
 
-
-
-
   <img src="https://i.ibb.co/qYtHkrd/home.png" alt="home" border="0">
   <img src="https://i.ibb.co/fYzhS2V/movie-details.png" alt="movie details" border="0">
 
