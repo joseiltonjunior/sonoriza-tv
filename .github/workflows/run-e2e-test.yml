@@ -26,6 +26,9 @@ jobs:
       - name: Build the project
         run: yarn build
 
+      - name: Set up environment variables
+        run: echo "VITE_API_TOKEN=${{ secrets.VITE_API_TOKEN }}" >> .env
+
       - name: Start the server for E2E tests
         run: yarn serve & 
 
