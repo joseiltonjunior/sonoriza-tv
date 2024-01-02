@@ -19,6 +19,7 @@ import { ThemeProps } from '@/storage/modules/theme/reducer'
 import { ModalProvider } from './useModal'
 
 import '@/i18n'
+import { FloatMenuProvider } from './useFloatMenu'
 
 export function Hooks({ children }: PropsWithChildren) {
   const { theme } = useSelector<ReduxProps, ThemeProps>((item) => item.theme)
@@ -26,14 +27,16 @@ export function Hooks({ children }: PropsWithChildren) {
   return (
     <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
       <ModalProvider>
-        <GlobalStyle />
-        <SkeletonTheme
-          baseColor={colors.Dark_700}
-          highlightColor={colors.Primary}
-        >
-          {children}
-        </SkeletonTheme>
-        <ToastContainer />
+        <FloatMenuProvider>
+          <GlobalStyle />
+          <SkeletonTheme
+            baseColor={colors.Dark_700}
+            highlightColor={colors.Primary}
+          >
+            {children}
+          </SkeletonTheme>
+          <ToastContainer />
+        </FloatMenuProvider>
       </ModalProvider>
       <Analytics />
     </ThemeProvider>

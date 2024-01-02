@@ -8,9 +8,12 @@ export const Content = styled.div`
   margin: 0 auto;
   width: 100%;
   margin-top: 2rem;
-  padding: 0 1rem;
 
   transition: all 0.2s;
+
+  @media (max-width: 1280px) {
+    padding: 0 1rem;
+  }
 
   @media (max-width: 900px) {
     padding: 0 0 0 1rem;
@@ -121,21 +124,6 @@ export const ContentPreview = styled(motion.div)`
   }
 `
 
-export const ContentWeb = styled.div`
-  display: none;
-
-  @media (min-width: 900px) {
-    display: block;
-  }
-`
-
-export const ContentMobile = styled.div`
-  display: none;
-
-  @media (max-width: 900px) {
-    display: block;
-  }
-`
 export const ImageBanner = styled.div`
   position: relative;
 `

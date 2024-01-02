@@ -1,4 +1,3 @@
-import { Header } from '@/components/Header'
 import { ReduxProps } from '@/storage'
 
 import { useSelector } from 'react-redux'
@@ -176,72 +175,66 @@ export function Home() {
   }, [filter, handleSearchDB, handleSearchPersonDB])
 
   return (
-    <>
-      <Header isHome />
+    <Container>
+      {popularMovies && emptySerch && (
+        <PopularMovies
+          movies={popularMovies.filter(
+            (item) => !moviesBlock.includes(item.id),
+          )}
+        />
+      )}
+      <Content>
+        <div className="paddingRight">
+          <SearchResults searchList={searchList} personList={personList} />
+        </div>
 
-      <Container>
-        {popularMovies && emptySerch && (
-          <PopularMovies
-            movies={popularMovies.filter(
-              (item) => !moviesBlock.includes(item.id),
-            )}
-          />
+        {historic.length > 0 && emptySerch && (
+          <>
+            <Title>{t('historic')}</Title>
+
+            <Carousel
+              movies={historic.filter((item) => !moviesBlock.includes(item.id))}
+            />
+          </>
         )}
-        <Content>
-          <div className="paddingRight">
-            <SearchResults searchList={searchList} personList={personList} />
+
+        {favorites.length > 0 && emptySerch && (
+          <div style={{ marginTop: 50 }}>
+            <Title>{t('favorites')}</Title>
+
+            <CarouselFavorites
+              movies={favorites.filter(
+                (item) => !moviesBlock.includes(item.id),
+              )}
+            />
           </div>
+        )}
 
-          {historic.length > 0 && emptySerch && (
-            <>
-              <Title>{t('historic')}</Title>
+        {topRatedMovies && emptySerch && (
+          <div style={{ marginTop: 50 }}>
+            <Title>{t('topRated')}</Title>
 
-              <Carousel
-                movies={historic.filter(
-                  (item) => !moviesBlock.includes(item.id),
-                )}
-              />
-            </>
-          )}
-
-          {favorites.length > 0 && emptySerch && (
-            <div style={{ marginTop: 50 }}>
-              <Title>{t('favorites')}</Title>
-
-              <CarouselFavorites
-                movies={favorites.filter(
-                  (item) => !moviesBlock.includes(item.id),
-                )}
-              />
-            </div>
-          )}
-
-          {topRatedMovies && emptySerch && (
-            <div style={{ marginTop: 50 }}>
-              <Title>{t('topRated')}</Title>
-
-              <Carousel
-                movies={topRatedMovies.filter(
-                  (item) => !moviesBlock.includes(item.id),
-                )}
-              />
-            </div>
-          )}
-
-          <div className="paddingRight">
-            {allMovies && emptySerch && (
-              <AllMovies
-                moreItens={handleMoreItems}
-                orderBy={sortBy}
-                setOrderBy={setSortBy}
-                allMovies={allMovies.filter(
-                  (item) => !moviesBlock.includes(item.id),
-                )}
-              />
-            )}
+            <Carousel
+              movies={topRatedMovies.filter(
+                (item) => !moviesBlock.includes(item.id),
+              )}
+            />
           </div>
-        </Content>
-      </Container>
-    </>
+        )}
+
+        <div className="paddingRight">
+          {allMovies && emptySerch && (
+            <AllMovies
+              moreItens={handleMoreItems}
+              orderBy={sortBy}
+              setOrderBy={setSortBy}
+              allMovies={allMovies.filter(
+                (item) => !moviesBlock.includes(item.id),
+              )}
+            />
+          )}
+        </div>
+      </Content>
+    </Container>
   )
 }

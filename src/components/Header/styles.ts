@@ -32,6 +32,8 @@ export const LimitContent = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  /* position: relative; */
 `
 
 export const Logo = styled.img`
