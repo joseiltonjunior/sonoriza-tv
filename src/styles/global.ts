@@ -4,7 +4,7 @@ import { colors } from './colors'
 export default createGlobalStyle`
 :focus{
   outline: transparent;
-  box-shadow: 0 0 0 1px ${colors.Primary};
+  box-shadow: none;
 }
 
 * {

@@ -1,4 +1,3 @@
-import { Header } from '@/components/Header'
 import { Container, Content } from './styles'
 import { useSelector } from 'react-redux'
 import { FavoritesProps } from '@/storage/modules/favorites/reducer'
@@ -57,35 +56,32 @@ export function Favorites() {
   }, [handleGetRecommendationsMovieDB])
 
   return (
-    <>
-      <Header />
-      <Container>
-        <Content>
-          {favorites.length > 0 && (
-            <div style={{ marginTop: 50 }}>
-              <Title>{t('favorites')}</Title>
+    <Container>
+      <Content>
+        {favorites.length > 0 && (
+          <div style={{ marginTop: 50 }}>
+            <Title>{t('favorites')}</Title>
 
-              <CarouselFavorites
-                movies={favorites.filter(
-                  (item) => !moviesBlock.includes(item.id),
-                )}
-              />
-            </div>
-          )}
+            <CarouselFavorites
+              movies={favorites.filter(
+                (item) => !moviesBlock.includes(item.id),
+              )}
+            />
+          </div>
+        )}
 
-          {recommendations && recommendations.length > 0 && (
-            <div style={{ marginTop: 50 }}>
-              <Title>{t('recommendations')}</Title>
+        {recommendations && recommendations.length > 0 && (
+          <div style={{ marginTop: 50 }}>
+            <Title>{t('recommendations')}</Title>
 
-              <Carousel
-                movies={recommendations.filter(
-                  (item) => !moviesBlock.includes(item.id),
-                )}
-              />
-            </div>
-          )}
-        </Content>
-      </Container>
-    </>
+            <Carousel
+              movies={recommendations.filter(
+                (item) => !moviesBlock.includes(item.id),
+              )}
+            />
+          </div>
+        )}
+      </Content>
+    </Container>
   )
 }
