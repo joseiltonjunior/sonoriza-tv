@@ -9,7 +9,6 @@ import {
   LimitContent,
   HomeButtom,
   ContentLeft,
-  Anchor,
 } from './styles'
 import { ReduxProps } from '@/storage'
 import { ThemeProps, setTheme } from '@/storage/modules/theme/reducer'
@@ -17,10 +16,10 @@ import logo from '@/assets/logo.png'
 import brazil from '@/assets/brazil.png'
 import eua from '@/assets/eua.png'
 
-import { MdDarkMode, MdLightMode, MdMenu, MdStar } from 'react-icons/md'
+import { MdDarkMode, MdLightMode, MdMenu } from 'react-icons/md'
 import { colors } from '@/styles/colors'
 import { LanguageProps, setLang } from '@/storage/modules/language/reducer'
-import { useModal } from '@/hooks/useModal'
+
 import { Link } from 'react-router-dom'
 
 import kids from '@/assets/thumb-2.png'
@@ -30,12 +29,16 @@ import { Search } from '../Search'
 
 import { SearchProps, setFilter } from '@/storage/modules/search/reducer'
 import i18next, { t } from 'i18next'
+import { useFloatMenu } from '@/hooks/useFloatMenu'
+import { MutableRefObject } from 'react'
 
 interface HeaderProps {
   isHome?: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  personButtonRef: MutableRefObject<any>
 }
 
-export function Header({ isHome }: HeaderProps) {
+export function Header({ isHome, personButtonRef }: HeaderProps) {
   const { theme } = useSelector<ReduxProps, ThemeProps>((item) => item.theme)
   const { lang } = useSelector<ReduxProps, LanguageProps>(
     (item) => item.language,
@@ -47,7 +50,7 @@ export function Header({ isHome }: HeaderProps) {
 
   const { filter } = useSelector<ReduxProps, SearchProps>((item) => item.search)
 
-  const { openModal } = useModal()
+  const { openFloatMenu } = useFloatMenu()
 
   const dispatch = useDispatch()
 
@@ -55,7 +58,7 @@ export function Header({ isHome }: HeaderProps) {
     <Container>
       <LimitContent>
         <ContentLeft>
-          <HomeButtom onClick={() => openModal()}>
+          <HomeButtom onClick={() => openFloatMenu()}>
             <MdMenu size={30} color={colors.Light} />
           </HomeButtom>
 
@@ -101,10 +104,14 @@ export function Header({ isHome }: HeaderProps) {
               )}
             </Button>
 
-            <Anchor title={t('favorites')} to={'/favorites'}>
+            {/* <Anchor title={t('favorites')} to={'/favorites'}>
               <MdStar color={colors.Yellow_600} size={20} />
-            </Anchor>
-            <Profile onClick={() => openModal()} title="Profile">
+            </Anchor> */}
+            <Profile
+              ref={personButtonRef}
+              onMouseEnter={() => openFloatMenu()}
+              title="Profile"
+            >
               <img src={profile === 'kids' ? kids : normal} alt="profile" />
             </Profile>
           </div>

@@ -20,7 +20,7 @@ import {
   ContentLoading,
   MovieBackgroud,
 } from './styles'
-import { Header } from '@/components/Header'
+
 import { formatDate } from '@/utils/formatDate'
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md'
 import { colors } from '@/styles/colors'
@@ -125,7 +125,6 @@ export function MovieDetails() {
   if (!movieDetails)
     return (
       <>
-        <Header />
         <ContentLoading>
           <div>
             <Lottie animationData={movieLoading} loop={true} />
@@ -136,7 +135,6 @@ export function MovieDetails() {
 
   return (
     <>
-      <Header />
       <ContentHeader>
         <MovieBackgroud
           src={`https://image.tmdb.org/t/p/original${movieDetails.backdrop_path}`}
